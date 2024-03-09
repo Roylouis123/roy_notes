@@ -4,6 +4,7 @@ const arr1 = [6, 2, 3, 4, 5];
 const num1 = [2, 4, 3, 6, 8];
 const num2 = [3, 6, 9, 7, 5];
 
+
 //-------------------------------------------Traversal---------------------------------------------------
 
 // Traversal involves visiting each element of the array exactly once.
