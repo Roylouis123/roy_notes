@@ -223,3 +223,185 @@ function outerFunction() {
 
 let closureFunc = outerFunction();
 closureFunc(); // Output: I'm outer
+
+
+
+
+
+
+
+////------------------------------------DOM Manupulation------------------
+
+// Selecting by ID:
+// You can select an element by its unique ID using the getElementById() method.
+
+// javascript
+// Copy code
+var element = document.getElementById("element-id");
+// Selecting by Class Name:
+// You can select elements by their class name using the getElementsByClassName() method. This returns a collection of elements with the specified class name.
+
+// javascript
+// Copy code
+var elements = document.getElementsByClassName("class-name");
+// Selecting by Tag Name:
+// You can select elements by their tag name using the getElementsByTagName() method. This returns a collection of elements with the specified tag name.
+
+// javascript
+// Copy code
+var elements = document.getElementsByTagName("tag-name");
+
+
+
+
+// Selecting by CSS Selectors:
+
+
+var element = document.querySelector(".example");
+
+// Selects all elements with class "example"
+var elements = document.querySelectorAll(".example");
+
+// Selects the element with ID "example"
+var element = document.querySelector("#example");
+
+
+
+
+// 1. Modifying Content:
+// You can change the content of an element dynamically using properties like textContent, innerHTML, or innerText.
+
+// Example using textContent:
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modifying Content</title>
+</head>
+<body>
+  <p id="paragraph">This is a paragraph.</p>
+
+  <script>
+    // Accessing the paragraph element
+    var paragraph = document.getElementById("paragraph");
+
+    // Changing text content
+    paragraph.textContent = "Updated paragraph text";
+  </script>
+</body>
+</html>
+
+
+
+// Modifying Attributes:
+// You can change attributes of an element using the setAttribute() method, or directly by modifying the element's property.
+
+// Example using setAttribute():
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modifying Attributes</title>
+</head>
+<body>
+  <img id="image" src="old-src.jpg">
+
+  <script>
+    // Accessing the image element
+    var image = document.getElementById("image");
+
+    // Changing src attribute
+    image.setAttribute("src", "new-src.jpg");
+  </script>
+</body>
+</html>
+
+
+
+{/* 3. Modifying Styles:
+You can change the styles of an element using the style property, which provides access to the element's inline styles.
+
+Example:
+html
+Copy code */}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modifying Styles</title>
+</head>
+<body>
+  <div id="box">Styled Box</div>
+
+  <script>
+    // Accessing the box element
+    var box = document.getElementById("box");
+
+    // Modifying styles
+    box.style.width = "200px";
+    box.style.height = "100px";
+    box.style.backgroundColor = "blue";
+    box.style.color = "white";
+    box.style.fontSize = "20px";
+    box.style.padding = "10px";
+  </script>
+</body>
+</html>
+
+
+
+{/* 
+Click Events:
+Click events occur when a user clicks on an element. You can handle click events by adding an event listener to the element.
+
+Example: */}
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Click Event Handling</title>
+</head>
+<body>
+  <button id="myButton">Click Me</button>
+
+  <script>
+    // Accessing the button element
+    var button = document.getElementById("myButton");
+
+    // Adding a click event listener
+    button.addEventListener("click", function() {
+      alert("Button clicked!");
+    });
+  </script>
+</body>
+</html>
+  
+
+{/* 
+Keypress Events:
+Keypress events occur when a key is pressed while focus is on an element. You can handle keypress events similarly to click events by adding an event listener.
+
+Example:
+html */}
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Keypress Event Handling</title>
+</head>
+<body>
+  <input type="text" id="myInput">
+
+  <script>
+    // Accessing the input element
+    var input = document.getElementById("myInput");
+
+    // Adding a keypress event listener
+    input.addEventListener("keypress", function(event) {
+      console.log("Key pressed:", event.key);
+    });
+  </script>
+</body>
+</html>
