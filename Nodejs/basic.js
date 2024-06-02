@@ -148,3 +148,33 @@ console.log(math.subtract(5, 3)); // Output: 2
 // Non-Global (Local) Modules: Need to be imported using require or import. 
 // These include core Node.js modules (e.g., fs, http), third-party modules (e.g., express, lodash),
 //  and custom modules created within the project.
+
+
+
+
+
+// getting data from command line arguments
+console.log(process.argv)  // node index.js boyyyyy
+
+[
+    'C:\\Program Files\\nodejs\\node.exe',
+    'C:\\Users\\reena\\Documents\\Newfolder\\Nodejs\\test.js',
+    'boyyyyy'
+]
+
+
+
+// getting file local 
+
+console.log(__dirname);
+
+// Directory Name: /path/to/your/directory
+
+console.log(__dirname, "public");
+
+// Directory Name: /path/to/your/public
+
+console.log(__filename);
+
+// File Name: /path/to/your/directory/yourfile.js
+
