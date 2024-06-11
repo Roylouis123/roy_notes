@@ -496,8 +496,6 @@ printjson(explanation);
 }
 
 
-
-
 //------------------------------Logical Operators-----------------------------------
 
 $and Example:
