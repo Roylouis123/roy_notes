@@ -391,24 +391,3 @@ print(count)  # Output: 2
 # print
 
 
-
-
-
-
-
-Phase 3: Advanced Python
-Object-Oriented Programming (OOP)
-
-Classes and objects
-Inheritance
-Polymorphism
-Encapsulation
-Advanced Data Structures
-
-Collections module (namedtuple, deque, Counter)
-Iterators and Generators
-Decorators
-Regular Expressions
-
-Understanding and using regex for pattern matching
-re module functions (match, search, findall, sub)
