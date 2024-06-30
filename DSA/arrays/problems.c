@@ -1,23 +1,84 @@
-// 1. To find min and max value
+1. //* Add 2 numbers
 
-const data = [2, 32, 343, 4, 2, 1,4,5,6,3,3];
+//----------------Javascript
+def add_numbers(arr):
+    return sum(arr)
+ 
+arr=[12,32,43]
+num=add_numbers(arr)
+print(num) // 75
 
-console.time("time");
+//----------------Python
+const arr=[12,323]
+const sum=arr.reduce((acc,curr)=>{
+    return acc + curr;
+})
+console.log(sum) // 345
 
-let min = data[0]; // Initialize min with the first element
-let max = data[0]; // Initialize max with the first element
 
-for (let i = 1; i < data.length; i++) { // Start loop from index 1
-    if (data[i] < min) {
-        min = data[i];
-    }
-    if (data[i] > max) {
-        max = data[i];
+2. //* arrays with highest points for bob and ali
+
+//----------------Javascript
+const bob=[12,323]
+const ali=[33,343]
+
+let b=0;
+let a=0;
+
+for(let i=0; i<3; i++){
+    if(bob[i]>ali[i]){
+       b++;
+    }else if(bob[i]<ali[i]){
+       a++;
     }
 }
 
-console.timeEnd("time");
+console.log(b,a)
 
-console.log(`Minimum: ${min}, Maximum: ${max}`);
+//----------------Python
+bob=[1,2,3]
+ali=[2,3,1]
+
+def points_to(a,b):
+    bob=ali=0
+    for i in range(3):
+        if a[i]>b[i]:
+            bob+=1
+        elif a[i]<b[i]:
+            ali+=1
+    return bob,ali
+
+num=points_to(bob,ali)
+print(num)
 
 
+3. calculate absolute right and left of 2d matrix 
+
+
+//--------------python
+function diagonalDifference(arr) {
+
+    left=right=0
+    
+    n=len(arr)
+    
+    for i in range(n):
+        left+=arr[i][i]
+        right+=arr[i][n-i-1]
+    return abs(left-right)
+
+}
+
+//--------------javascript
+let arr=[[1,2,3],[4,5,6],[7,8,9]]
+
+function diagonalDifference(arr) {
+    let left = 0
+    let right = 0
+    let n = arr.length
+    for (let i = 0; i < n; i++) {
+        left += arr[i][i]
+        right += arr[i][n - i - 1]
+    }
+    return Math.abs(left - right) // output 15
+}
