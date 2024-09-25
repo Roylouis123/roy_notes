@@ -16,3 +16,49 @@ Nginx can handle SSL termination, managing secure connections (HTTPS) and decryp
 Security:
 
 Nginx can be configured to provide various security features, such as rate limiting, IP whitelisting/blacklisting, and protection against DDoS attacks. This helps to secure the Node.js application from common web threats.
+
+
+
+// first create ubuntu image using docker
+
+docker run -it -p 8080:80 ubuntu
+
+
+
+apt-get update
+
+apt-get install nginx
+
+nginx // it will start nginix localhost:8080
+
+
+go to cd /etc/nginx
+
+vim nginx.conf  //change the default data to below data
+
+also u can add domain names......
+
+after that restart nginx
+
+nginx -s reload
+
+-----------------------------------------------------------------
+events{
+
+}
+
+http {
+        server {
+                listen 80;
+                server_name _;
+
+                location / {
+                        return 200 "Hello world from nginix";
+
+                }
+        }
+
+}
+
+
+--------------------------------------------------------
