@@ -1,0 +1,45 @@
+General
+Ctrl+Shift+N = New window/instance (It will open a new window immediately) 
+Ctrl+Shift+W = Close window/instance (It will close new window immediately)
+Navigation
+Ctrl+X = Cut line (empty selection) You can erase the whole line you selected. 
+Alt+ ↑ / ↓ = Move line up/down. You can move the line using the arrows without having to erase
+Shift+Alt + ↓ / ↑ = Copy line up/down. This will copy the line as many times as you press the arrow. 
+Ctrl+Shift+K = Delete line. This will delete the whole line instantly. 
+Home / End = Go to beginning/end of line. 
+Ctrl+Home =Go to beginning of file
+Ctrl+End =Go to end of file
+Search and replace
+Ctrl+F = Find. This will open the search global find sidebar.
+Ctrl+H = Replace. This will open the taskbar where you can write what you wish to replace. 
+Multi-cursor and selection
+Alt+Click = Insert cursor. You can insert the cursor on as many lines at once and write the same thing at the same time on all lines
+CTRL+D = Multi-select an element. When you need to change the H3 tags to the H4 tags (all of them) in a file, what will you do? You have to select one H3 tag and use the shortcut. This will find every H3 tag and give you an active cursor for further action.
+Ctrl+U = Undo last cursor operation.
+Shift+Alt+I = Insert cursor at end of each line selected
+Ctrl+L = Select current line. It selects the current line like you would do it with the mouse when wanting to copy and paste something. 
+Rich language editing
+Ctrl+Space = Trigger suggestion. The program will automatically be suggesting.
+Shift+Alt+F = Format document
+Editor management
+Ctrl+F4, Ctrl+W = Close editor
+Ctrl+\ = Split editor
+Ctrl+ 1 / 2 / 3 = Focus into 1 st, 2nd or 3rd editor group
+File Management
+Ctrl+N = New File
+Ctrl+O = Open File...
+Ctrl+S = Save
+Ctrl+Shift+S = Save As...
+Ctrl+F4 = Close
+Ctrl+Shift+T = Reopen closed editor
+Ctrl+Tab = Open next
+Display
+Ctrl+B = Toggle Sidebar visibility
+Ctrl+Shift+F = Show Search
+Ctrl+Shift+G = Show Source Control
+Ctrl+Shift+H = Replace in files
+Ctrl+Shift+U = Show Output panel
+Ctrl+Shift+V = Open Markdown preview
+Integrated Terminal
+Ctrl+` = Show integrated terminal
+Ctrl+Shift+` = Create new terminal 

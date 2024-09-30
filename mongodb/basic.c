@@ -93,24 +93,23 @@
 
 // Database Commands
 
-
 show databases
 // Lists all databases on the MongoDB server.
 
 use myDatabase
-// Switches to the database myDatabase. If it does not exist, it will be created upon inserting data.
+// Switches to the database named myDatabase. If it doesn't exist, it will be created when you first store data in it.
 
 db
-// Displays the name of the current database.
+// Shows the name of the current database.
 
 show collections
 // Lists all collections in the current database.
 
 db.createCollection("myCollection")
-// Creates a new collection named myCollection.
+// Creates a new collection named myCollection in the current database.
 
 db.myCollection.drop()
-// Deletes the collection myCollection.
+// Removes the collection named myCollection from the current database.
 
 
 
@@ -120,85 +119,74 @@ db.myCollection.drop()
 db.myCollection.insertOne({ name: "Alice", age: 25 })
 // Inserts a single document into the collection myCollection.
 
-
-
 db.myCollection.insertMany([{ name: "Bob", age: 30 }, { name: "Carol", age: 27 }])
 // Inserts multiple documents into the collection myCollection.
 
-
 db.myCollection.find()
-// Retrieves all documents from the collection myCollection. 
-// Show all data in collection
-
+// Retrieves and displays all documents from the collection myCollection.
 
 db.myCollection.find({ age: { $gte: 25 } })
-// Retrieves documents where the age is greater than or equal to 25.
-
+// Retrieves documents from myCollection where the age is greater than or equal to 25.
 
 db.myCollection.findOne({ name: "Alice" })
-// Retrieves a single document where the name is "Alice".
-
+// Retrieves the first document from myCollection where the name is "Alice".
 
 db.myCollection.updateOne({ name: "Alice" }, { $set: { age: 26 } })
-// Updates the document where the name is "Alice" to set the age to 26.
-
+// Updates the age to 26 for the first document in myCollection where the name is "Alice".
 
 db.myCollection.updateMany({ age: { $lt: 30 } }, { $set: { status: "young" } })
-// Updates all documents where the age is less than 30, setting the status to "young".
+// Adds a "status" field with value "young" to all documents in myCollection where the age is less than 30.
 
-
-db.myCollection.replaceOne({ name: "Alice" }, { name: "Alice", age: 26, status: "young" })
-// Replaces the document where the name is "Alice" with the new document.
-
-
+db.myCollection.replaceOne({ name: "Alice" }, { name: "Roy", age: 26, status: "young" })
+// Replaces the first document in myCollection where the name is "Alice" with a new document.
 
 db.myCollection.deleteOne({ name: "Alice" })
-// Deletes the document where the name is "Alice".
-
+// Deletes the first document in myCollection where the name is "Alice".
 
 db.myCollection.deleteMany({ status: "young" })
-// Deletes all documents where the status is "young".
+// Deletes all documents in myCollection where the status is "young".
 
 
 
 
 
-// -----------------------------------ordered and unordered-------------------------------
+// -----------------------------------Ordered and Unordered Insert Operations-------------------------------
 
+// MongoDB offers two types of insert operations: ordered and unordered.
+// These differ in how they handle errors when inserting multiple documents.
 
-In MongoDB, there are two types of insert operations: ordered and unordered.
- The difference between them lies in how they handle errors during the insertion of multiple documents.
+// 1. Ordered Insert Operations
+// - Inserts documents in the order they are specified
+// - Stops at the first error encountered
 
-// Ordered Insert Operations
-
+// Example of Ordered Insert:
 db.myCollection.insertMany([
   { _id: 1, name: "Alice" },
   { _id: 2, name: "Bob" },
-  { _id: 1, name: "Charlie" }, // Duplicate _id will cause an error
+  { _id: 1, name: "Charlie" }, // Duplicate _id - This will cause an error
   { _id: 4, name: "David" }
 ], { ordered: true })
 
-In this example, the third document with _id: 1 is a duplicate, so MongoDB will raise an error, and the insertion
- operation will stop. Only the first two documents will be inserted into the collection.
+// Note: In this case, only Alice and Bob will be inserted.
+// The operation stops when it encounters the duplicate _id for Charlie.
+// After the error, the remaining documents are not inserted.
 
 
+// 2. Unordered Insert Operations
+// - Attempts to insert all documents, regardless of errors
+// - Continues insertion even if some documents fail
 
-// Unordered Insert Operations
-
+// Example of Unordered Insert:
 db.myCollection.insertMany([
   { _id: 1, name: "Alice" },
   { _id: 2, name: "Bob" },
-  { _id: 1, name: "Charlie" }, // Duplicate _id will cause an error
+  { _id: 1, name: "Charlie" }, // Duplicate _id - This will cause an error
   { _id: 4, name: "David" }
 ], { ordered: false })
 
-In this example, although the third document with _id: 1 is a duplicate and will cause an error, 
-MongoDB will continue attempting to insert the remaining documents. After completing the operation, 
-it will return a report containing details of the error.
-
-
-
-
+// Note: In this case, Alice, Bob, and David will be inserted.
+// Charlie will be skipped due to the duplicate _id, but the operation continues.
+// MongoDB will return a report with details of any errors after completion.
 
 
 
@@ -211,288 +199,204 @@ mongoimport C:\Users\rolouis\desktop\students.json -d databaseName -c collection
 
 
 //--------------------------------Operators in MongoDB-----------------------------------
-
-
 1. $eq (Equal)
 // Matches documents where the value of a field is equal to the specified value.
-
 db.myCollection.find({ age: { $eq: 30 } })
 // Finds documents where the age field is equal to 30.
-
-{ "_id": ObjectId("..."), "name": "Bob", "age": 30 }
-
-
+// Example output:
+// { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
 
 2. $ne (Not Equal)
 // Matches documents where the value of a field is not equal to the specified value.
-
 db.myCollection.find({ age: { $ne: 30 } })
-
-// Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
-
+// Example output:
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
 3. $gt (Greater Than)
 // Matches documents where the value of a field is greater than the specified value.
-
-
 db.myCollection.find({ age: { $gt: 30 } })
-
-// Output:
-[
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
-
-
+// Example output:
+// [
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
 4. $gte (Greater Than or Equal To)
 // Matches documents where the value of a field is greater than or equal to the specified value.
-
 db.myCollection.find({ age: { $gte: 30 } })
-
-// Output:
-[
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
-
+// Example output:
+// [
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
 5. $lt (Less Than)
 // Matches documents where the value of a field is less than the specified value.
-
 db.myCollection.find({ age: { $lt: 30 } })
-// Output:
-
-{ "_id": ObjectId("..."), "name": "Alice", "age": 25 }
-
+// Example output:
+// { "_id": ObjectId("..."), "name": "Alice", "age": 25 }
 
 6. $lte (Less Than or Equal To)
 // Matches documents where the value of a field is less than or equal to the specified value.
-
 db.myCollection.find({ age: { $lte: 30 } })
-Output:
+// Example output:
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
+// ]
 
-
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
-]
-
-7. $in (In)
+7. $in (In) // Matches any value in an array
 // Matches documents where the value of a field equals any value in the specified array.
-
 db.myCollection.find({ age: { $in: [25, 35] } })
+// Example output:
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 }
+// ]
 
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 }
-]
-
-8. $nin (Not In)
+8. $nin (Not In) // Does not match any value in an array
 // Matches documents where the value of a field does not equal any value in the specified array.
-
-
 db.myCollection.find({ age: { $nin: [25, 35] } })
-Output:
+// Example output:
+// [
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
 
-[
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
+//------------------ Cursor Methods ------------------------
 
+// Cursor methods are used to iterate over the results of a query.
 
-$eq: Equal to
-$ne: Not equal to
-$gt: Greater than
-$gte: Greater than or equal to
-$lt: Less than
-$lte: Less than or equal to
-$in: Matches any value in an array
-$nin: Does not match any value in an array
+// Basic Cursor Methods: hasNext(), next(), forEach(), map(), toArray()
+// Query Modification Methods: sort(), limit(), skip(), count(), size(), batchSize(), explain()
 
-
-//------------------ cursor methods ------------------------
-
-
-Basic Cursor Methods: hasNext(), next(), forEach(), map(), toArray().
-Query Modification Methods: sort(), limit(), skip(), count(), size(), batchSize(), explain().
-
-
-
-hasNext() 
+// hasNext()
 // Checks if there are more documents left to iterate in the cursor.
 const cursor = db.myCollection.find();
 while (cursor.hasNext()) {
   printjson(cursor.next());
 }
 
-
-cursor.next()
+// next()
 // Returns the next document in the cursor.
-
 const cursor = db.myCollection.find();
 while (cursor.hasNext()) {
   printjson(cursor.next());
 }
 
-// Example:
-cursor.hasNext() and cursor.next():
-
+// Example: Using hasNext() and next() together
 const cursor = db.myCollection.find();
 while (cursor.hasNext()) {
   printjson(cursor.next());
 }
-
 // Output:
-{ "_id": ObjectId("..."), "name": "Alice", "age": 25 }
-{ "_id": ObjectId("..."), "name": "Bob", "age": 30 }
-{ "_id": ObjectId("..."), "name": "Charlie", "age": 35 }
-{ "_id": ObjectId("..."), "name": "David", "age": 40 }
+// { "_id": ObjectId("..."), "name": "Alice", "age": 25 }
+// { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
+// { "_id": ObjectId("..."), "name": "Charlie", "age": 35 }
+// { "_id": ObjectId("..."), "name": "David", "age": 40 }
 
-
-
-
-
-cursor.forEach():
+// forEach()
 // Iterates over all documents in the cursor and applies a function to each document.
-
 db.myCollection.find().forEach(doc => printjson(doc));
-
 // Output:
-{ "_id": ObjectId("..."), "name": "Alice", "age": 25 }
-{ "_id": ObjectId("..."), "name": "Bob", "age": 30 }
-{ "_id": ObjectId("..."), "name": "Charlie", "age": 35 }
-{ "_id": ObjectId("..."), "name": "David", "age": 40 }
+// { "_id": ObjectId("..."), "name": "Alice", "age": 25 }
+// { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
+// { "_id": ObjectId("..."), "name": "Charlie", "age": 35 }
+// { "_id": ObjectId("..."), "name": "David", "age": 40 }
 
-
-cursor.map():
+// map()
 // Applies a function to each document in the cursor and returns an array of the results.
-
 const names = db.myCollection.find().map(doc => doc.name);
 print(names);
-
 // Output:
-[ "Alice", "Bob", "Charlie", "David" ]
+// [ "Alice", "Bob", "Charlie", "David" ]
 
-
-cursor.toArray():
+// toArray()
 // Converts the cursor to an array of documents.
-
 const docs = db.myCollection.find().toArray();
 printjson(docs);
-
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
-
-cursor.sort():
-// Sorts the documents in the cursor by the specified field(s).
-
+// sort()
+// Sorts the documents in the cursor by the specified field(s). 1 for ascending, -1 for descending.
 db.myCollection.find().sort({ age: 1 }).toArray();
-
-
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30 },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
-
-cursor.limit():
+// limit()
 // Limits the number of documents returned by the cursor.
-
 db.myCollection.find().limit(2).toArray();
-
-
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25 },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30 }
+// ]
 
-
-cursor.skip():
+// skip()
 // Skips the specified number of documents in the cursor.
-
-
 db.myCollection.find().skip(2).toArray();
-
-
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
-  { "_id": ObjectId("..."), "name": "David", "age": 40 }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35 },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40 }
+// ]
 
-
-cursor.count():
+// count()
 // Returns the count of documents in the cursor.
-
 const count = db.myCollection.find().count();
 print(count);
-
-
 // Output:
-4
+// 4
 
-
-cursor.size():
+// size()
 // Returns the number of documents in the cursor, excluding those skipped.
-
 const size = db.myCollection.find().skip(1).size();
 print(size);
-
-
 // Output:
-3
+// 3
 
-
-cursor.batchSize():
+// batchSize()
 // Controls the number of documents MongoDB returns in a single batch.
-
 db.myCollection.find().batchSize(2).toArray();
+// Note: This controls the number of documents returned in each batch but doesn't affect the final output.
 
-// This controls the number of documents returned in each batch but doesn't affect the output in this example.
-
-
-
-cursor.explain():
-// Provides information on the execution of the query.
-
+// explain()
+// Provides information on the execution plan of the query.
 const explanation = db.myCollection.find().explain();
 printjson(explanation);
-
 // Output:
-{
-  "queryPlanner": {
-    "plannerVersion": 1,
-    "namespace": "myDatabase.myCollection",
-    "indexFilterSet": false,
-    ...
-  },
-  ...
-}
+// {
+//   "queryPlanner": {
+//     "plannerVersion": 1,
+//     "namespace": "myDatabase.myCollection",
+//     "indexFilterSet": false,
+//     ...
+//   },
+//   ...
+// }
 
 
 //------------------------------Logical Operators-----------------------------------
 
-$and Example:
-// Joins query clauses with a logical AND, requiring all clauses to be true for a document to be included in the result set.
-
+// $and Example:
+// Joins query clauses with a logical AND, returns documents that satisfy all specified conditions.
 db.myCollection.find({
   $and: [
     { age: { $gt: 25 } },
@@ -501,12 +405,11 @@ db.myCollection.find({
 })
 
 // Output:
-{ "_id": ObjectId("..."), "name": "Charlie", "age": 35, "city": "New York" }
+// { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "city": "New York" }
 
 
-$or Example:
-// Joins query clauses with a logical OR, requiring at least one of the clauses to be true for a document to be included in the result set.
-
+// $or Example:
+// Joins query clauses with a logical OR, returns documents that satisfy at least one of the specified conditions.
 db.myCollection.find({
   $or: [
     { age: { $lt: 30 } },
@@ -515,15 +418,14 @@ db.myCollection.find({
 })
 
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25, "city": "New York" },
-  { "_id": ObjectId("..."), "name": "David", "age": 40, "city": "Los Angeles" }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25, "city": "New York" },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40, "city": "Los Angeles" }
+// ]
 
 
-$nor Example:
-// Joins query clauses with a logical NOR, requiring both clauses to be false for a document to be included in the result set.
-
+// $nor Example:
+// Joins query clauses with a logical NOR, returns documents that fail all specified conditions.
 db.myCollection.find({
   $nor: [
     { age: { $lt: 30 } },
@@ -531,36 +433,28 @@ db.myCollection.find({
   ]
 })
 
-
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "city": "New York" },
-  { "_id": ObjectId("..."), "name": "David", "age": 40, "city": "Los Angeles" }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "city": "New York" },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40, "city": "Los Angeles" }
+// ]
 
 
-$not Example:
-// Inverts the effect of a query expression and returns documents that do not match the query expression.
-
+// $not Example:
+// Inverts the effect of a query expression, returns documents that do not match the query expression.
 db.myCollection.find({
   age: { $not: { $gte: 30 } }
 })
 
-
 // Output:
-{ "_id": ObjectId("..."), "name": "Alice", "age": 25, "city": "New York" }
+// { "_id": ObjectId("..."), "name": "Alice", "age": 25, "city": "New York" }
 
 
+// Combining Logical Operators
+// Logical operators can be combined to form more complex queries.
 
-Combining Logical Operators
-Logical operators can be combined to form more complex queries.
-
-
-Example:
-
+// Example:
 // Find documents where the age is greater than 25 and the city is either "New York" or "Los Angeles":
-
-
 db.myCollection.find({
   $and: [
     { age: { $gt: 25 } },
@@ -571,24 +465,19 @@ db.myCollection.find({
   ]
 })
 
-
 // Output:
-[
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "city": "New York" },
-  { "_id": ObjectId("..."), "name": "David", "age": 40, "city": "Los Angeles" }
-]
+// [
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "city": "New York" },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40, "city": "Los Angeles" }
+// ]
 
 
 
 
 
+//------------------------------Elements Operators-----------------------------------
 
-
-
-
-//------------------------------Elements Operator-----------------------------------
-
-
+// Sample data insertion for demonstration purposes
 db.myCollection.insertMany([
   { name: "Alice", age: 25, tags: ["student", "athlete"], address: { city: "New York", zip: "10001" } },
   { name: "Bob", age: 30, tags: ["engineer", "musician"], address: { city: "San Francisco", zip: "94101" } },
@@ -596,60 +485,46 @@ db.myCollection.insertMany([
   { name: "David", age: 40, tags: ["doctor", "artist"], address: { city: "Los Angeles", zip: "90001" } }
 ])
 
-
-
-$exists
-// The $exists operator matches documents that have the specified field.
-
+$exists operator
+// Matches documents that have the specified field, regardless of its value
 db.myCollection.find({ address: { $exists: true } })
 
+// Output: All documents in the collection, as they all have an 'address' field
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30, "tags": ["engineer", "musician"], "address": { "city": "San Francisco", "zip": "94101" } },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "tags": ["teacher"], "address": { "city": "New York", "zip": "10002" } },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40, "tags": ["doctor", "artist"], "address": { "city": "Los Angeles", "zip": "90001" } }
+// ]
 
-// Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30, "tags": ["engineer", "musician"], "address": { "city": "San Francisco", "zip": "94101" } },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "tags": ["teacher"], "address": { "city": "New York", "zip": "10002" } },
-  { "_id": ObjectId("..."), "name": "David", "age": 40, "tags": ["doctor", "artist"], "address": { "city": "Los Angeles", "zip": "90001" } }
-]
-
-
-
-$type
-
-// The $type operator matches documents where the field is of the specified BSON type.
-
+$type operator
+// Matches documents where the specified field is of the given BSON type
 db.myCollection.find({ age: { $type: "int" } })
 
+// Output: All documents in the collection, as 'age' is an integer in all documents
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30, "tags": ["engineer", "musician"], "address": { "city": "San Francisco", "zip": "94101" } },
+//   { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "tags": ["teacher"], "address": { "city": "New York", "zip": "10002" } },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40, "tags": ["doctor", "artist"], "address": { "city": "Los Angeles", "zip": "90001" } }
+// ]
 
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30, "tags": ["engineer", "musician"], "address": { "city": "San Francisco", "zip": "94101" } },
-  { "_id": ObjectId("..."), "name": "Charlie", "age": 35, "tags": ["teacher"], "address": { "city": "New York", "zip": "10002" } },
-  { "_id": ObjectId("..."), "name": "David", "age": 40, "tags": ["doctor", "artist"], "address": { "city": "Los Angeles", "zip": "90001" } }
-]
-
-
-
-$size
-// The $size operator matches documents where the array field is of the specified length.
-
-
+$size operator
+// Matches documents where the specified array field has the given number of elements
 db.myCollection.find({ tags: { $size: 2 } })
 
-// Output:
-[
-  { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } },
-  { "_id": ObjectId("..."), "name": "Bob", "age": 30, "tags": ["engineer", "musician"], "address": { "city": "San Francisco", "zip": "94101" } },
-  { "_id": ObjectId("..."), "name": "David", "age": 40, "tags": ["doctor", "artist"], "address": { "city": "Los Angeles", "zip": "90001" } }
-]
+// Output: Documents where the 'tags' array has exactly 2 elements
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } },
+//   { "_id": ObjectId("..."), "name": "Bob", "age": 30, "tags": ["engineer", "musician"], "address": { "city": "San Francisco", "zip": "94101" } },
+//   { "_id": ObjectId("..."), "name": "David", "age": 40, "tags": ["doctor", "artist"], "address": { "city": "Los Angeles", "zip": "90001" } }
+// ]
 
-
-
-
-$regex
-// The $regex operator provides regular expression capabilities for pattern matching strings in queries.
-
+$regex operator
+// Provides regular expression capabilities for pattern matching strings in queries
 db.myCollection.find({ name: { $regex: /^A/ } })
 
-// Output:
-{ "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } }
+// Output: Documents where the 'name' field starts with 'A'
+// [
+//   { "_id": ObjectId("..."), "name": "Alice", "age": 25, "tags": ["student", "athlete"], "address": { "city": "New York", "zip": "10001" } }
+// ]
