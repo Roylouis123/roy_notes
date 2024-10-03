@@ -1,7 +1,39 @@
 // Common array-based DSA interview questions (sorted from easy to hard):
 
+
 1. Find the maximum element in an array
+
+function Max(arr) {
+    if (!arr) return "Input is incorrect";
+  
+    let mNum = Number.NEGATIVE_INFINITY;
+    for (let i = 0; i < arr.length; i++) {
+      if (mNum < arr[i]) {
+        mNum = arr[i];
+      }
+    }
+    return mNum;
+  }
+  
+  console.log(Max([2, 3, 5, 2]));
+  
+  // The time complexity of the above code is O(n) where n is the length of the array.
+  // This is because the function iterates through the array once to find the maximum value.
+  
+  // An alternative way to find the maximum value in an array is to use the Math.max function along with the spread operator:
+  function MaxAlternative(arr) {
+    if (!arr) return "Input is incorrect";
+    return Math.max(...arr);
+  }
+  
+  console.log(MaxAlternative([2, 3, 5, 2]));
+  // The time complexity of this alternative approach is also O(n) because the spread operator iterates through the array.
+
+  
+
 2. Reverse an array in-place
+
+
 3. Two Sum
 4. Remove Duplicates from Sorted Array
 5. Move Zeroes
