@@ -356,3 +356,7 @@ function printPyramidAlphabetPattern(n) {
 }
 
 printPyramidAlphabetPattern(4);
+
+17.
+
+* *
