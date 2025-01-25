@@ -30,6 +30,7 @@ console.log(map.size); // Output: 1
 
 // Clear all entries
 map.clear();
+
 Example: Using a Hash Map to Count Word Frequency
 
 
