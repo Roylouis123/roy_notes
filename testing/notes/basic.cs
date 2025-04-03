@@ -20,7 +20,7 @@ expect({ a: 1 }).toEqual({ a: 1 });
 .toBeFalsy() → Checks if the value is falsy (false, 0, null, undefined).
 
 expect(null).toBeNull();
-expect("").toBeFalsy();
+expect("").toBeFalsy(); 
 
 3. Number Matchers
 .toBeGreaterThan(num) → Checks if greater than num.
