@@ -13,6 +13,12 @@ ls /home
 // Display the current date and time:
 date
 
+// creates new file
+touch
+
+// runs the file
+./roy.sh
+
 // Display the current directory:
 pwd
 
@@ -57,6 +63,9 @@ cat myfile.txt
 
 // Display the contents of a directory:
 ls -l
+
+// Display the contents of a directory with all properties:
+ls -ltr
 
 // Display the contents of a file with line numbers:
 nl myfile.txt
