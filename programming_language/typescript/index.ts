@@ -150,9 +150,8 @@
 // 📌 7. TypeScript with React
 // Use .tsx files for React components.
 
-// tsx
-// Copy
-// Edit
+
+
 // interface Props {
 //   name: string;
 // }
@@ -166,9 +165,8 @@
 
 // tsc --init
 // 🔹 Example tsconfig.json
-// json
-// Copy
-// Edit
+
+
 // {
 //   "compilerOptions": {
 //     "target": "ES6",
