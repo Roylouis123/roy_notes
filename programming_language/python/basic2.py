@@ -1,249 +1,182 @@
-#* File Handling
+# Python Beyond Basics: Practical Skills
+# ===================================
 
-File handling allows you to read from and write to files.
-Python provides built-in functions like open(), read(), write(), and close() for file handling.
+# 1. Working with Files: Reading and Writing
+# -----------------------------------------
+# Files let us store and retrieve information that persists even after our program ends.
 
-Note:It's important to close files after working with them to free up system resources.
+# Think of files like documents on your computer - we can open them, read them, write to them, and close them.
 
+# Opening a file in 'write' mode (creates a new file or overwrites an existing one)
+print("Creating a file...")
+with open('shopping_list.txt', 'w') as file:
+    file.write("Apples\n")  # \n means "new line"
+    file.write("Bread\n")
+    file.write("Cheese\n")
+    file.write("Milk\n")
+print("File created!")
 
-# Opening a file
-file = open('filename', 'mode')
-
-# Modes:
-# 'r' - read (default)
-# 'w' - write (truncate the file)
-# 'a' - append
-# 'b' - binary mode
-# 't' - text mode (default)
-# '+' - read and write
-
-# Reading from a file
-content = file.read()  # Read the entire file
-lines = file.readlines()  # Read all lines into a list
-
-# Writing to a file
-file.write('Some text')
-
-# Closing a file
-file.close()
-
-
-# Writing to a text file
-with open('example.txt', 'w') as file:
-    file.write("Hello, world!\n")
-    file.write("This is a new line.")
-
-# Reading from a text file
-with open('example.txt', 'r') as file:
+# Opening a file in 'read' mode (to view its contents)
+print("\nReading the complete file:")
+with open('shopping_list.txt', 'r') as file:
     content = file.read()
     print(content)
-    
 
-
-# Writing to a text file
-with open('example.txt', 'w') as file:
-    file.write("Line 1\n")
-    file.write("Line 2\n")
-
-# Reading from a text file
-with open('example.txt', 'r') as file:
+# Reading a file line by line
+print("\nReading the file line by line:")
+with open('shopping_list.txt', 'r') as file:
     for line in file:
-        print(line.strip())  # strip() removes the newline character
+        print("Item:", line.strip())  # strip() removes extra whitespace
+
+# Opening a file in 'append' mode (to add more content without erasing what's there)
+print("\nAppending to the file...")
+with open('shopping_list.txt', 'a') as file:
+    file.write("Eggs\n")
+    file.write("Yogurt\n")
+
+# Reading the updated file
+print("\nReading the updated file:")
+with open('shopping_list.txt', 'r') as file:
+    content = file.read()
+    print(content)
 
 
-
-
-
+# 2. Working with CSV Files (Spreadsheet Data)
+# ------------------------------------------
+# CSV (Comma-Separated Values) files are like simple spreadsheets.
+# They store data in rows and columns, separated by commas.
 
 import csv
 
-# Writing to a CSV file
-with open('example.csv', 'w', newline='') as csvfile:
+# Creating a CSV file (like a mini-spreadsheet)
+print("\nCreating a CSV file...")
+with open('employees.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerow(['Name', 'Age', 'City'])
-    writer.writerow(['Alice', 30, 'New York'])
-    writer.writerow(['Bob', 25, 'Los Angeles'])
+    # Write the header row
+    writer.writerow(['Name', 'Department', 'Salary'])
+    # Write data rows
+    writer.writerow(['Alice Smith', 'Marketing', 55000])
+    writer.writerow(['Bob Johnson', 'Engineering', 70000])
+    writer.writerow(['Carol Davis', 'HR', 60000])
+print("CSV file created!")
 
 # Reading from a CSV file
-with open('example.csv', 'r') as csvfile:
+print("\nReading from CSV file:")
+with open('employees.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
-        print(row)
-Working with JSON Files
+        print(row)  # Each row is a list of values
 
 
-
-
-
-
-# JSON (JavaScript Object Notation) is a lightweight data-interchange format.
-Python's json module provides functions to read from and write to JSON files.
-
+# 3. Working with JSON Data (Web Data Format)
+# -----------------------------------------
+# JSON is a popular data format used by websites and apps to exchange information.
+# It looks similar to Python dictionaries and lists.
 
 import json
 
-data = {
-    "name": "Alice",
-    "age": 30,
-    "city": "New York"
+# Example person data
+person = {
+    "name": "John Smith",
+    "age": 35,
+    "married": True,
+    "children": ["Jane", "Bob"],
+    "pets": None,
+    "cars": [
+        {"model": "BMW 230", "year": 2014},
+        {"model": "Ford Edge", "year": 2019}
+    ]
 }
 
-# Writing to a JSON file
-with open('example.json', 'w') as jsonfile:
-    json.dump(data, jsonfile)
+# Saving data to a JSON file
+print("\nSaving data to a JSON file...")
+with open('person.json', 'w') as jsonfile:
+    json.dump(person, jsonfile, indent=4)  # indent makes it pretty and readable
+print("JSON file saved!")
 
-# Reading from a JSON file
-with open('example.json', 'r') as jsonfile:
-    content = json.load(jsonfile)
-    print(content)
-Comprehensive 
-
-# Reading from a CSV file and writing to a JSON file
-import csv
-import json
-
-csv_file = 'example.csv'
-json_file = 'example.json'
-
-# Reading data from CSV
-data = []
-with open(csv_file, 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        data.append(row)
-
-# Writing data to JSON
-with open(json_file, 'w') as jsonfile:
-    json.dump(data, jsonfile, indent=4)
-    
-    
-    
-    
-# * Exception Handling
-Try, Except Blocks
-
-Exception handling allows you to manage errors gracefully without crashing your program.
-Use try block to wrap the code that may raise an exception.
-Use except block to handle the exception.
+# Reading data from a JSON file
+print("\nReading from JSON file:")
+with open('person.json', 'r') as jsonfile:
+    data = json.load(jsonfile)
+    print("Name:", data["name"])
+    print("Age:", data["age"])
+    print("Children:", ", ".join(data["children"]))
+    print("First car model:", data["cars"][0]["model"])
 
 
+# 4. Error Handling: Dealing with Problems
+# --------------------------------------
+# In the real world, things go wrong! Error handling lets our programs deal with
+# problems gracefully instead of crashing.
+
+# Example 1: Division by zero
+print("\nHandling division by zero:")
 try:
-    # Code that might raise an exception
-    pass
-except SomeException as e:
-    # Code that runs if the exception occurs
-    pass
-
-
-try:
+    # This will cause an error
     result = 10 / 0
-except ZeroDivisionError as e:
-    print(f"Error: {e}")  # Output: Error: division by zero
-    
-    
-    
-Multiple Exceptions
-
-
-try:
-    result = 10 / int("a")
+    print("Result:", result)  # This line won't run
 except ZeroDivisionError:
-    print("Cannot divide by zero")
+    print("Error: You can't divide by zero!")
+
+# Example 2: Missing file
+print("\nHandling a missing file:")
+try:
+    with open('file_that_doesnt_exist.txt', 'r') as file:
+        content = file.read()
+        print(content)
+except FileNotFoundError:
+    print("Error: The file doesn't exist!")
+
+# Example 3: Multiple possible errors
+print("\nHandling multiple error types:")
+try:
+    number = int(input("Enter a number: "))  # Try entering "abc" or "0"
+    result = 100 / number
+    print("100 divided by", number, "is", result)
 except ValueError:
-    print("Invalid input")
-    
-    
-    
-    # Finally and Else Clauses
-
-
-finally: A block that will always execute, regardless of whether an exception occurred or not.
-else: A block that will execute if no exceptions are raised in the try block.
-
-
-try:
-    # Code that might raise an exception
-    pass
-except SomeException as e:
-    # Code that runs if the exception occurs
-    pass
-else:
-    # Code that runs if no exception occurs
-    pass
+    print("Error: That's not a valid number!")
+except ZeroDivisionError:
+    print("Error: You can't divide by zero!")
+except:
+    print("Some other error occurred!")
 finally:
-    # Code that always runs
-    pass
+    # This always runs, error or no error
+    print("This calculation attempt is complete.")
 
 
-try:
-    file = open('example.txt', 'r')
-    content = file.read()
-except FileNotFoundError as e:
-    print(f"Error: {e}")
-else:
-    print("File read successfully")
-finally:
-    file.close()
-    print("File closed")
-    
-    
-   
-   
-   
-    # Raising Exceptions
-
-
-Use the raise statement to manually trigger an exception.
-You can raise built-in exceptions or custom exceptions.
-
-
-raise SomeException("Error message")
-
-
-def check_age(age):
-    if age < 0:
-        raise ValueError("Age cannot be negative")
-    else:
-        print("Age is valid")
-
-try:
-    check_age(-1)
-except ValueError as e:
-    print(f"Error: {e}")  # Output: Error: Age cannot be negative
-    
-    
-    
-    
-# Custom Exceptions
-
-
-class CustomError(Exception):
-    pass
-
-def do_something():
-    raise CustomError("Something went wrong")
-
-try:
-    do_something()
-except CustomError as e:
-    print(f"Error: {e}")  # Output: Error: Something went wrong
-Comprehensive 
+# 5. Creating Custom Errors
+# -----------------------
+# Sometimes we need to create our own error types for our specific programs.
 
 class NegativeNumberError(Exception):
-    """Custom exception for negative numbers"""
+    """Error raised when a number is negative but should be positive."""
     pass
 
-def sqrt(number):
+def calculate_square_root(number):
+    """Calculate the square root of a non-negative number."""
     if number < 0:
         raise NegativeNumberError("Cannot calculate square root of a negative number")
-    return number ** 0.5
+    return number ** 0.5  # ** 0.5 is the same as square root
 
+# Using our custom error
+print("\nUsing a custom error:")
 try:
-    num = -10
-    result = sqrt(num)
+    # Try with -9, then try with 9
+    result = calculate_square_root(-9)
+    print("Square root result:", result)
 except NegativeNumberError as e:
-    print(f"Error: {e}")
-else:
-    print(f"Square root: {result}")
-finally:
-    print("Execution completed")
+    print("Error:", e)
+
+# 6. Context Managers (the 'with' statement)
+# ----------------------------------------
+# Context managers help us properly set up and clean up resources like files.
+# The 'with' statement ensures files are always closed properly, even if errors occur.
+
+print("\nUsing a context manager (with statement):")
+try:
+    # This ensures the file is properly closed, even if an error occurs
+    with open('shopping_list.txt', 'r') as file:
+        for line in file:
+            print("Shopping item:", line.strip())
+except FileNotFoundError:
+    print("The file doesn't exist.")

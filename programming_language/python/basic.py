@@ -1,393 +1,298 @@
-# Phase 1: Introduction to Python
+# Python Basics: A Beginner's Guide
+# =================================
 
-# Example of variable assignment
-x = 10         # int
-y = 3.14       # float
-name = "Roy"   # string
-is_student = True # bool
+# 1. What is Python?
+# -----------------
+# Python is a simple programming language that's easy to read and write.
+# Think of it like giving instructions to a computer in a language that's close to English.
 
-# Arithmetic Operators
-Used to perform mathematical operations.
+# 2. Variables: Storing Information
+# --------------------------------
+# Variables are like labeled boxes where you store different types of information.
+
+name = "Roy"        # Text (string) - stores words, letters, sentences
+age = 30            # Whole number (integer) - stores numbers without decimal points
+height = 5.9        # Decimal number (float) - stores numbers with decimal points
+is_student = True   # True/False value (boolean) - stores yes/no information
+
+# Example: How to use variables
+print("My name is", name)
+print("I am", age, "years old")
+print("My height is", height, "feet")
+print("Am I a student?", is_student)
+
+# 3. Basic Math Operations
+# -----------------------
+# Python can be used as a calculator to perform various math operations.
 
 a = 10
 b = 3
 
-addition = a + b       # 13
-subtraction = a - b    # 7
-multiplication = a * b # 30
-division = a / b       # 3.3333
-modulus = a % b        # 1
-exponentiation = a ** b # 1000
-floor_division = a // b # 3
+# Addition: like combining quantities
+print("10 + 3 =", a + b)  # Result: 13
+
+# Subtraction: finding the difference 
+print("10 - 3 =", a - b)  # Result: 7
+
+# Multiplication: repeated addition
+print("10 × 3 =", a * b)  # Result: 30
+
+# Division: splitting into equal parts
+print("10 ÷ 3 =", a / b)  # Result: 3.3333...
+
+# Remainder (modulus): what's left after division
+print("Remainder of 10 ÷ 3 =", a % b)  # Result: 1
+
+# Power: multiplying a number by itself multiple times
+print("10 to the power of 3 =", a ** b)  # Result: 1000
+
+# Floor division: division that rounds down to nearest whole number
+print("10 divided by 3 (rounded down) =", a // b)  # Result: 3
 
 
-# Comparison Operators
-Used to compare two values. They return a boolean value (True or False).
+# 4. Comparing Values
+# ------------------
+# Comparing values gives us True or False answers, like yes or no questions.
 
 x = 10
 y = 20
 
-equals = (x == y)        # False
-not_equals = (x != y)    # True
-greater_than = (x > y)   # False
-less_than = (x < y)      # True
-greater_than_or_equal = (x >= y) # False
-less_than_or_equal = (x <= y)    # True
+# Equal to: Are the values the same?
+print("Is 10 equal to 20?", x == y)  # Result: False
+
+# Not equal to: Are the values different?
+print("Is 10 different from 20?", x != y)  # Result: True
+
+# Greater than: Is the first value larger?
+print("Is 10 greater than 20?", x > y)  # Result: False
+
+# Less than: Is the first value smaller?
+print("Is 10 less than 20?", x < y)  # Result: True
+
+# Greater than or equal to
+print("Is 10 greater than or equal to 20?", x >= y)  # Result: False
+
+# Less than or equal to
+print("Is 10 less than or equal to 20?", x <= y)  # Result: True
 
 
+# 5. Logical Operations
+# --------------------
+# Logical operations combine True/False values to make decisions.
 
-# Logical Operators
-Used to combine conditional statements.
+sunny = True
+warm = False
 
-a = True
-b = False
+# AND: Both conditions must be True
+print("Is it sunny AND warm?", sunny and warm)  # Result: False (because warm is False)
 
-and_operator = a and b   # False
-or_operator = a or b     # True
-not_operator = not a     # False
+# OR: At least one condition must be True
+print("Is it sunny OR warm?", sunny or warm)  # Result: True (because sunny is True)
+
+# NOT: Reverses True to False and False to True
+print("Is it NOT sunny?", not sunny)  # Result: False (because sunny is True)
 
 
+# 6. Making Decisions with If Statements
+# -------------------------------------
+# If statements allow the program to make decisions based on conditions.
 
-# Conditional Statements
-
-Basic if statement:
-
-num = 5
-if num > 0:
-    print("The number is positive")
-    
-    
-    
-if-elif-else statement:
-
-temperature = 30
+# Simple if statement
+temperature = 25
 
 if temperature > 30:
-    print("It's a hot day")
+    print("It's hot outside!")
 elif temperature > 20:
-    print("It's a nice day")
+    print("It's a nice day!")
 elif temperature > 10:
-    print("It's a bit chilly")
+    print("It's a bit chilly!")
 else:
-    print("It's cold")
-    
-    
-    
-    
-    
-# *Lists
+    print("It's cold outside!")
 
-Lists are ordered, mutable collections of items.
-Items in a list can be of different types.
-Lists are defined using square brackets [].
+# Real-life example: Movie ticket pricing
+age = 15
+student = True
+
+if age < 12:
+    print("Child ticket: $5")
+elif age >= 65:
+    print("Senior ticket: $7")
+elif student:
+    print("Student ticket: $8")
+else:
+    print("Adult ticket: $10")
 
 
+# 7. Lists: Storing Multiple Items
+# -------------------------------
+# Lists are like ordered collections of items, similar to a shopping list.
 
 # Creating a list
-my_list = [1, 2, 3, 4, 5]
+fruits = ["apple", "banana", "cherry", "orange", "kiwi"]
+print("My fruit list:", fruits)
 
-fruits = ["apple", "banana", "cherry"]
-print(fruits)  # Output: ['apple', 'banana', 'cherry']
+# Accessing items in a list (positions start at 0, not 1)
+print("First fruit:", fruits[0])       # Result: apple
+print("Third fruit:", fruits[2])       # Result: cherry
 
+# Changing an item
+fruits[1] = "blueberry"
+print("Updated list:", fruits)         # apple, blueberry, cherry, orange, kiwi
 
+# Adding an item to the end
+fruits.append("mango")
+print("After adding mango:", fruits)   # apple, blueberry, cherry, orange, kiwi, mango
 
-# Accessing elements
-first_element = my_list[0]
+# Removing an item
+fruits.remove("cherry")
+print("After removing cherry:", fruits) # apple, blueberry, orange, kiwi, mango
 
-# Accessing elements
-print(fruits[1])  # Output: banana
-
-
-
-# Modifying elements
-my_list[1] = 20
-
-# Modifying elements
-fruits[0] = "avocado"
-print(fruits)  # Output: ['avocado', 'banana', 'cherry']
-
-
-
-# Adding elements
-my_list.append(6)
-
-# Adding elements
-fruits.append("date")
-print(fruits)  # Output: ['avocado', 'banana', 'cherry', 'date']
+# Finding the number of items
+print("Number of fruits:", len(fruits)) # Result: 5
 
 
-
-# Removing elements
-my_list.remove(3)
-
-# Removing elements
-fruits.remove("banana")
-print(fruits)  # Output: ['avocado', 'cherry', 'date']
-    
-   
-
-
-# *Tuples
-
-Tuples are ordered, immutable collections of items.
-Items in a tuple can be of different types.
-Tuples are defined using parentheses ().
+# 8. Tuples: Unchangeable Lists
+# ----------------------------
+# Tuples are like lists but once created, you cannot change them.
 
 # Creating a tuple
-my_tuple = (1, 2, 3, 4, 5)
-
 coordinates = (10, 20)
-print(coordinates)  # Output: (10, 20)
+print("Coordinates:", coordinates)  # Results: 
 
+# Accessing tuple items
+print("X coordinate:", coordinates[0])  # Result: 10
+print("Y coordinate:", coordinates[1])  # Result: 20
 
 # Unpacking tuples
 x, y = coordinates
-print(x, y)  # Output: 10 20
+print("X is", x, "and Y is", y)  # Result: X is 10 and Y is 20
 
-# Accessing elements
-first_element = my_tuple[0]
-
-# Accessing elements
-print(coordinates[0])  # Output: 10
+# Cannot modify tuples
+# coordinates[0] = 15  # This would cause an error!
 
 
-# Tuples are immutable; elements cannot be modified
-# my_tuple[1] = 20 # This would raise a TypeError
-
-# Tuples are immutable
-# coordinates[0] = 15  # This would raise a TypeError
-
-
-# Tuples can be unpacked
-a, b, c = (1, 2, 3)
-
-
-
-
-
-#* Dictionaries
-
-Dictionaries are unordered, mutable collections of key-value pairs.
-Keys must be unique and of an immutable type (e.g., strings, numbers, tuples).
-Dictionaries are defined using curly braces {}.
-
+# 9. Dictionaries: Key-Value Pairs
+# -------------------------------
+# Dictionaries store information in pairs, like a real dictionary with words and definitions.
 
 # Creating a dictionary
-my_dict = {"name": "John", "age": 30, "city": "New York"}
-
-person = {"name": "Alice", "age": 25, "city": "Paris"}
-print(person)  # Output: {'name': 'Alice', 'age': 25, 'city': 'Paris'}
-
+person = {
+    "name": "Alice",
+    "age": 25,
+    "city": "New York",
+    "is_student": True
+}
+print("Person information:", person)
 
 # Accessing values
-name = my_dict["name"]
+print("Name:", person["name"])        # Result: Alice
+print("Age:", person["age"])          # Result: 25
 
-# Accessing values
-print(person["name"])  # Output: Alice
-
-
-
-
-# Modifying values
-my_dict["age"] = 31
-
-# Modifying values
+# Changing values
 person["age"] = 26
-print(person)  # Output: {'name': 'Alice', 'age': 26, 'city': 'Paris'}
+print("Updated age:", person["age"])  # Result: 26
 
-
-# Adding key-value pairs
-my_dict["email"] = "john@example.com"
-
-# Adding key-value pairs
+# Adding new key-value pairs
 person["email"] = "alice@example.com"
-print(person)  # Output: {'name': 'Alice', 'age': 26, 'city': 'Paris', 'email': 'alice@example.com'}
-
-
-# Removing key-value pairs
-del my_dict["city"]
-
-
+print("Updated person:", person)
 
 # Removing key-value pairs
 del person["city"]
-print(person)  # Output: {'name': 'Alice', 'age': 26, 'email': 'alice@example.com'}
+print("After removing city:", person)
 
 
-
-#* Sets
-
-Sets are unordered collections of unique items.
-Sets are mutable, but items must be immutable.
-Sets are defined using curly braces {} or the set() function.
-
+# 10. Sets: Collections of Unique Items
+# -----------------------------------
+# Sets are unordered collections where each item appears only once.
 
 # Creating a set
-my_set = {1, 2, 3, 4, 5}
+colors = {"red", "green", "blue", "yellow"}
+print("Colors:", colors)
 
-colors = {"red", "green", "blue"}
-print(colors)  # Output: {'blue', 'red', 'green'}
+# Adding items
+colors.add("purple")
+print("After adding purple:", colors)
 
+# Adding a duplicate (will be ignored)
+colors.add("red")
+print("After adding red again:", colors)  # red will not be duplicated
 
-
-# Adding elements
-my_set.add(6)
-
-# Adding elements
-colors.add("yellow")
-print(colors)  # Output: {'blue', 'yellow', 'red', 'green'}
-
-
-
-# Removing elements
-my_set.remove(3)
-
-# Removing elements
+# Removing items
 colors.remove("green")
-print(colors)  # Output: {'blue', 'yellow', 'red'}
+print("After removing green:", colors)
+
+# Checking if an item exists
+print("Is blue in the set?", "blue" in colors)  # Result: True
+print("Is green in the set?", "green" in colors)  # Result: False
 
 
-# Sets do not allow duplicate values
-my_set.add(2)  # 2 is already in the set, so it won't be added again
+# 11. Loops: Repeating Actions
+# --------------------------
+# Loops let you repeat actions multiple times without rewriting code.
 
-# Checking for membership
-print("red" in colors)  # Output: True
-print("green" in colors)  # Output: False
-    
-    
-
-
-
- # Loops
- 
-for Loop
-
-for: Iterates over a sequence (e.g., list, tuple, string) and executes a block of code for each item.
-
-# Example of for loop
-numbers = [1, 2, 3, 4, 5]
-for number in numbers:
+# For loop: repeating for each item in a collection
+print("Counting from 1 to 5:")
+for number in [1, 2, 3, 4, 5]:
     print(number)
-    
-    # output
-    # 1
-    # 2
-    # 3
-    # 4
-    # 5
-    
-    
-    
-while Loop
-while: Repeatedly executes a block of code as long as a specified condition is true.
 
+# For loop with a list
+print("\nMy favorite fruits:")
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
 
-# Example of while loop
-count = 0
-while count < 5:
+# While loop: repeating as long as a condition is True
+print("\nCounting down from 5:")
+count = 5
+while count > 0:
     print(count)
-    count += 1
-    
-    # output
-# 0
-# 1
-# 2
-# 3
-# 4
-    
-    
-    
-   
-   
-   
-   #* Defining a function
-   
-   
-def function_name(parameters):
-    # Function body
-    statements
-    return value
-
-# Calling a function
-function_name(arguments)
+    count = count - 1  # decrease count by 1
+print("Blast off!")
 
 
-# example1
+# 12. Functions: Reusable Blocks of Code
+# ------------------------------------
+# Functions are like mini-programs you can reuse whenever needed.
+
+# Defining a simple function
 def greet(name):
-    print(f"Hello, {name}!")
+    print("Hello,", name + "!")
 
-greet("Alice")  # Output: Hello, Alice!
-   
-   
-# example2
+# Using the function
+greet("Sarah")  # Result: Hello, Sarah!
+greet("Michael")  # Result: Hello, Michael!
 
-def multiply(x, y):
-    return x * y
+# Function with a return value
+def calculate_area(length, width):
+    area = length * width
+    return area
 
-product = multiply(4, 5)
-print(product)  # Output: 20
-   
-   
-    
+# Using the function with a return value
+room_area = calculate_area(5, 4)
+print("The room area is", room_area, "square meters")  # Result: 20
 
-# Defining a lambda function
-lambda parameters: expression
+# Function with default parameters
+def make_coffee(type="regular"):
+    return "Making " + type + " coffee"
 
-# Example usage
-square = lambda x: x ** 2
-print(square(5))  # Output: 25
-
-
-# Lambda function for addition
-add = lambda a, b: a + b
-print(add(3, 7))  # Output: 10
-
-# Lambda function in sorting
-pairs = [(1, 'one'), (2, 'two'), (3, 'three')]
-pairs.sort(key=lambda pair: pair[1])
-print(pairs)  # Output: [(1, 'one'), (3, 'three'), (2, 'two')]
+print(make_coffee())  # Result: Making regular coffee
+print(make_coffee("espresso"))  # Result: Making espresso coffee
 
 
+# 13. Simple Lambda Functions
+# -------------------------
+# Lambda functions are small, anonymous functions defined in a single line.
 
+# Regular function
+def double(x):
+    return x * 2
 
-Scope (Local, Global)
-Notes
-Local scope: Variables defined inside a function. They are not accessible outside the function.
-Global scope: Variables defined outside all functions. They are accessible anywhere in the code.
-The global keyword allows you to modify a global variable inside a function.
-Syntax
-python
-Copy code
-# Global scope
-x = 10
+# Equivalent lambda function
+double_lambda = lambda x: x * 2
 
-def example():
-    # Local scope
-    y = 5
-    print(x)  # Accessing global variable
-    print(y)  # Accessing local variable
+print("Double of 5 (regular function):", double(5))  # Result: 10
+print("Double of 5 (lambda function):", double_lambda(5))  # Result: 10
 
-example()
-print(x)  # Accessing global variable
-# print(y)  # This would raise an error because y is not defined in the global scope
-Example
-python
-Copy code
-# Global variable
-count = 0
-
-def increment():
-    # Local variable
-    local_count = 0
-    global count
-    count += 1
-    local_count += 1
-    print(f"Global count: {count}, Local count: {local_count}")
-
-increment()  # Output: Global count: 1, Local count: 1
-increment()  # Output: Global count: 2, Local count: 1
-
-print(count)  # Output: 2
-# print
-
-
+# Lambda function for simple calculations
+multiply = lambda a, b: a * b
+print("5 × 3 =", multiply(5, 3))  # Result: 15

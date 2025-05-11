@@ -12,11 +12,8 @@ import React, { useState, useMemo } from 'react';
 const ExpensiveComponent = ({ count }) => {
   const expensiveFunction = (count) => {
     console.log("Calculating...");
-    let result = 0;
-    for (let i = 0; i < count; i++) {
-      result += i;
-    }
-    return result;
+    
+    return count+2;
   };
 
   // Memoize the result of the expensive function based on the 'count' prop

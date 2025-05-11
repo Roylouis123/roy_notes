@@ -1,494 +1,378 @@
-# Object-Oriented Programming (OOP)
+# Python Advanced Concepts Made Simple
+# =================================
 
+# 1. Object-Oriented Programming (OOP): Creating Virtual "Things"
+# -------------------------------------------------------------
+# OOP lets us model real-world objects in our code, with properties and behaviors.
 
-OOP is a programming paradigm based on the concept of objects, which can contain data and code.
-Classes define the blueprint for objects.
-Objects are instances of classes.
+# Think of it like creating a blueprint (class) for making many similar objects.
+# Example: A blueprint for a car would specify it has wheels, an engine, etc.
 
+print("OBJECT-ORIENTED PROGRAMMING (OOP)")
+print("=================================")
 
-OOP concepts include encapsulation, inheritance, and polymorphism.
-
-
-Classes and Objects
-
-
-A class is a blueprint for creating objects.
-An object is an instance of a class.
-
-
-class ClassName:
-    def __init__(self, parameters):
-        # Initialize attributes
-        self.attribute = parameters
-
-    def method(self):
-        # Method definition
-        pass
-
-# Creating an object
-object_name = ClassName(arguments)
-
+# Simple class example: Dog
+print("\n1. Creating and using a basic class:")
 
 class Dog:
-    def __init__(self, name, age):
+    # Init method - runs when we create a new dog
+    def __init__(self, name, age, breed):
+        # These are the dog's attributes (properties)
         self.name = name
         self.age = age
-
+        self.breed = breed
+        self.is_sitting = False
+    
+    # These are the dog's methods (behaviors)
     def bark(self):
-        print(f"{self.name} says woof!")
+        return f"{self.name} says Woof!"
+    
+    def sit(self):
+        if not self.is_sitting:
+            self.is_sitting = True
+            return f"{self.name} sits down"
+        else:
+            return f"{self.name} is already sitting"
+    
+    def stand(self):
+        if self.is_sitting:
+            self.is_sitting = False
+            return f"{self.name} stands up"
+        else:
+            return f"{self.name} is already standing"
 
-# Creating an object
-my_dog = Dog("Buddy", 3)
-print(my_dog.name)  # Output: Buddy
-print(my_dog.age)  # Output: 3
-my_dog.bark()  # Output: Buddy says woof!
-Methods
+# Creating dog objects from our Dog class
+buddy = Dog("Buddy", 3, "Golden Retriever")
+max = Dog("Max", 2, "German Shepherd")
 
+# Using our dog objects
+print(f"We have two dogs: {buddy.name} the {buddy.breed} and {max.name} the {max.breed}")
+print(buddy.bark())
+print(max.bark())
+print(buddy.sit())
+print(buddy.sit())  # Already sitting
+print(buddy.stand())
 
+# 2. Inheritance: Creating Specialized Classes
+# -------------------------------------------
+# Inheritance lets us create a new class based on an existing class.
+# The new class inherits all the attributes and methods but can also have its own.
 
-Methods are functions defined inside a class that operate on objects of that class.
-Instance methods: Operate on the instance of the class.
-Class methods: Use the @classmethod decorator and operate on the class itself.
-Static methods: Use the @staticmethod decorator and do not operate on instances or classes directly.
-
-
-class ClassName:
-    def instance_method(self):
-        pass
-
-    @classmethod
-    def class_method(cls):
-        pass
-
-    @staticmethod
-    def static_method():
-        pass
-
-
-class MathOperations:
-    def __init__(self, number):
-        self.number = number
-
-    def square(self):
-        return self.number ** 2
-
-    @classmethod
-    def multiply(cls, a, b):
-        return a * b
-
-    @staticmethod
-    def add(a, b):
-        return a + b
-
-# Using instance method
-obj = MathOperations(4)
-print(obj.square())  # Output: 16
-
-# Using class method
-print(MathOperations.multiply(3, 5))  # Output: 15
-
-# Using static method
-print(MathOperations.add(10, 20))  # Output: 30
-Inheritance
-
-
-Inheritance allows a class to inherit attributes and methods from another class.
-Base class (Parent): The class being inherited from.
-Derived class (Child): The class that inherits from the base class.
-
-
-class BaseClass:
-    # Base class definition
-    pass
-
-class DerivedClass(BaseClass):
-    # Derived class definition
-    pass
-
+print("\n2. Inheritance - creating specialized classes:")
 
 class Animal:
-    def __init__(self, name):
+    def __init__(self, name, species):
         self.name = name
+        self.species = species
+    
+    def make_sound(self):
+        return "Some generic animal sound"
+    
+    def info(self):
+        return f"{self.name} is a {self.species}"
 
-    def speak(self):
-        print(f"{self.name} makes a sound")
+# Dog class inherits from Animal class
+class ImproveDog(Animal):
+    def __init__(self, name, breed, favorite_toy):
+        # Call the parent class's init method
+        super().__init__(name, "dog")  # All dogs are species "dog"
+        self.breed = breed
+        self.favorite_toy = favorite_toy
+    
+    # Override the parent's make_sound method
+    def make_sound(self):
+        return "Woof!"
+    
+    # Add a new method specific to dogs
+    def play(self):
+        return f"{self.name} plays with {self.favorite_toy}"
 
-class Dog(Animal):
-    def speak(self):
-        print(f"{self.name} says woof!")
-
+# Cat class also inherits from Animal
 class Cat(Animal):
-    def speak(self):
-        print(f"{self.name} says meow!")
+    def __init__(self, name, breed):
+        super().__init__(name, "cat")  # All cats are species "cat"
+        self.breed = breed
+    
+    # Override parent's make_sound method
+    def make_sound(self):
+        return "Meow!"
+    
+    # Add a cat-specific method
+    def purr(self):
+        return f"{self.name} purrs contentedly"
 
-dog = Dog("Buddy")
-cat = Cat("Whiskers")
+# Create animal objects
+generic_animal = Animal("Wild Thing", "unknown")
+rex = ImproveDog("Rex", "Beagle", "tennis ball")
+whiskers = Cat("Whiskers", "Siamese")
 
-dog.speak()  # Output: Buddy says woof!
-cat.speak()  # Output: Whiskers says meow!
+# Test the objects
+print(generic_animal.info())  # From Animal class
+print(generic_animal.make_sound())  # From Animal class
 
+print(rex.info())  # Inherited from Animal
+print(rex.make_sound())  # Overridden in Dog
+print(rex.play())  # New method in Dog
 
-
-
-
-#* Polymorphism
-
-
-Polymorphism allows methods to be used interchangeably between different classes, as long as they implement the same method.
-Achieved through method overriding and method overloading.
-
-
-# Polymorphism through method overriding
-class BaseClass:
-    def method(self):
-        pass
-
-class DerivedClass1(BaseClass):
-    def method(self):
-        pass
-
-class DerivedClass2(BaseClass):
-    def method(self):
-        pass
+print(whiskers.info())  # Inherited from Animal
+print(whiskers.make_sound())  # Overridden in Cat
+print(whiskers.purr())  # New method in Cat
 
 
-class Bird:
-    def __init__(self, name):
-        self.name = name
+# 3. Special Methods: Customizing Object Behavior
+# ---------------------------------------------
+# Python classes can implement special methods that let objects work with
+# built-in functions and operators.
 
-    def fly(self):
-        print(f"{self.name} is flying")
+print("\n3. Special methods in classes:")
 
-class Penguin(Bird):
-    def fly(self):
-        print(f"{self.name} cannot fly")
-
-class Sparrow(Bird):
-    def fly(self):
-        print(f"{self.name} flies high")
-
-def let_it_fly(bird):
-    bird.fly()
-
-penguin = Penguin("Pingu")
-sparrow = Sparrow("Jack")
-
-let_it_fly(penguin)  # Output: Pingu cannot fly
-let_it_fly(sparrow)  # Output: Jack flies high
-Encapsulation
-
-
-#* Encapsulation 
-
-is the concept of wrapping data and methods within a single unit (class) and restricting access to some of the object's components.
-Access modifiers: Public, Private, and Protected.
-
-
-class ClassName:
+class ShoppingCart:
     def __init__(self):
-        self.public_attribute = "I am public"
-        self._protected_attribute = "I am protected"
-        self.__private_attribute = "I am private"
+        self.items = {}  # Dictionary to store items and their quantities
+    
+    # Add an item to the cart
+    def add_item(self, item, price, quantity=1):
+        if item in self.items:
+            self.items[item]['quantity'] += quantity
+        else:
+            self.items[item] = {'price': price, 'quantity': quantity}
+    
+    # Special method to get the length
+    def __len__(self):
+        """Returns the total number of items in the cart"""
+        return sum(item['quantity'] for item in self.items.values())
+    
+    # Special method for string representation
+    def __str__(self):
+        """Returns a human-readable string describing the cart"""
+        item_count = len(self)
+        total = self.calculate_total()
+        return f"Shopping Cart with {item_count} items, total: ${total:.2f}"
+    
+    # Calculate the total price
+    def calculate_total(self):
+        """Calculate the total cost of all items in the cart"""
+        return sum(item['price'] * item['quantity'] for item in self.items.values())
 
-    def get_private_attribute(self):
-        return self.__private_attribute
+# Create a shopping cart
+cart = ShoppingCart()
+cart.add_item("Apple", 0.99, 5)
+cart.add_item("Bread", 3.49, 2)
+cart.add_item("Milk", 2.99)  # Default quantity is 1
 
-
-class Car:
-    def __init__(self, brand, model):
-        self.brand = brand  # Public
-        self._model = model  # Protected
-        self.__engine = "V8"  # Private
-
-    def get_engine(self):
-        return self.__engine
-
-    def set_engine(self, engine):
-        self.__engine = engine
-
-car = Car("Ford", "Mustang")
-print(car.brand)  # Output: Ford
-print(car._model)  # Output: Mustang
-# print(car.__engine)  # AttributeError: 'Car' object has no attribute '__engine'
-print(car.get_engine())  # Output: V8
-car.set_engine("V6")
-print(car.get_engine())  # Output: V6
-
-
-
-
-
-
-
-
-
-
-
-
-Collections Module
+# Use the special methods
+print(f"Number of items in cart: {len(cart)}")  # Uses __len__
+print(cart)  # Uses __str__
+print(f"Total cost: ${cart.calculate_total():.2f}")
 
 
-namedtuple
+# 4. Data Collections: Tools for Organizing Information
+# ---------------------------------------------------
+# Python's collections module provides specialized container datatypes that
+# extend beyond the built-in types (list, dict, set, tuple).
+
+from collections import namedtuple, Counter, defaultdict, deque
+import random
+
+print("\n4. Specialized collections:")
+
+# namedtuple - A tuple with named fields
+print("\na) namedtuple - Tuple with named fields:")
+Person = namedtuple('Person', ['name', 'age', 'job'])
+john = Person('John Doe', 35, 'Software Developer')
+print(f"{john.name} is {john.age} years old and works as a {john.job}")
+
+# Counter - Count occurrences of elements
+print("\nb) Counter - Counting elements:")
+fruits = ['apple', 'orange', 'banana', 'apple', 'banana', 'apple', 'pear']
+fruit_count = Counter(fruits)
+print(f"Fruit count: {dict(fruit_count)}")
+print(f"Most common fruits: {fruit_count.most_common(2)}")  # Top 2 most common
+
+# defaultdict - Dictionary with default values
+print("\nc) defaultdict - Dictionary with default values:")
+# Regular dict gives KeyError for missing keys
+regular_dict = {}
+try:
+    print(regular_dict['missing'])
+except KeyError:
+    print("Regular dict raised KeyError for missing key")
+
+# defaultdict provides a default value instead
+int_dict = defaultdict(int)  # Default value is 0
+print(f"Value for missing key: {int_dict['missing']}")  # Gives 0 instead of error
+int_dict['a'] += 1  # No error even though 'a' wasn't defined
+print(f"Values in int_dict: {dict(int_dict)}")
+
+# deque - Double-ended queue
+print("\nd) deque - Double-ended queue:")
+d = deque(['first', 'second', 'third'])
+print(f"Initial deque: {d}")
+d.append('last')  # Add to right end
+d.appendleft('new first')  # Add to left end
+print(f"After adding to both ends: {d}")
+print(f"Removed from right: {d.pop()}")  # Remove from right
+print(f"Removed from left: {d.popleft()}")  # Remove from left
+print(f"Final deque: {d}")
 
 
-namedtuple is a factory function for creating tuple subclasses with named fields.
-It allows for more readable and self-documenting code by accessing elements by name instead of position.
+# 5. Iterators and Generators: Efficient Data Processing
+# ----------------------------------------------------
+# Iterators and generators let us process data efficiently, one item at a time,
+# without loading everything into memory.
 
-from collections import namedtuple
+print("\n5. Iterators and Generators:")
 
-# Creating a namedtuple
-Point = namedtuple('Point', ['x', 'y'])
-p = Point(10, 20)
+# Iterator example
+print("\na) Custom iterator - Countdown:")
 
-
-from collections import namedtuple
-
-Point = namedtuple('Point', ['x', 'y'])
-p = Point(10, 20)
-
-print(p.x)  # Output: 10
-print(p.y)  # Output: 20
-
-
-
-# deque
-
-
-deque (double-ended queue) is a list-like container with fast appends and pops on both ends.
-Useful for implementing queues and stacks.
-
-
-from collections import deque
-
-# Creating a deque
-d = deque([1, 2, 3, 4])
-
-from collections import deque
-
-d = deque([1, 2, 3, 4])
-d.append(5)  # Append to the right
-d.appendleft(0)  # Append to the left
-print(d)  # Output: deque([0, 1, 2, 3, 4, 5])
-
-d.pop()  # Pop from the right
-print(d)  # Output: deque([0, 1, 2, 3, 4])
-
-d.popleft()  # Pop from the left
-print(d)  # Output: deque([1, 2, 3, 4])
-
-
-# Counter
-
-Counter is a dictionary subclass for counting hashable objects.
-It is useful for counting occurrences of elements.
-
-
-from collections import Counter
-
-# Creating a Counter
-c = Counter([1, 2, 2, 3, 3, 3])
-
-
-from collections import Counter
-
-c = Counter([1, 2, 2, 3, 3, 3])
-print(c)  # Output: Counter({3: 3, 2: 2, 1: 1})
-
-# Accessing counts
-print(c[2])  # Output: 2
-
-# Most common elements
-print(c.most_common(2))  # Output: [(3, 3), (2, 2)]
-
-
-
-
-
-
-
-# Iterators
-
-
-Iterators are objects that can be iterated upon.
-Implement __iter__() and __next__() methods.
-
-
-class MyIterator:
-    def __init__(self, limit):
-        self.limit = limit
-        self.counter = 0
-
+class Countdown:
+    def __init__(self, start):
+        self.start = start
+    
+    # Required for iterator objects
     def __iter__(self):
         return self
-
+    
+    # Required for iterator objects
     def __next__(self):
-        if self.counter < self.limit:
-            self.counter += 1
-            return self.counter
-        else:
+        if self.start <= 0:
             raise StopIteration
+        self.start -= 1
+        return self.start + 1
 
-it = MyIterator(5)
-for i in it:
-    print(i)
+# Using the iterator
+print("Counting down from 5:")
+for num in Countdown(5):
+    print(num, end=' ')
+print()  # Newline
 
+# Generator example (much simpler!)
+print("\nb) Generator function - Countdown:")
 
-class MyIterator:
-    def __init__(self, limit):
-        self.limit = limit
-        self.counter = 0
+def countdown_generator(start):
+    while start > 0:
+        yield start
+        start -= 1
 
-    def __iter__(self):
-        return self
+# Using the generator
+print("Counting down from 5:")
+for num in countdown_generator(5):
+    print(num, end=' ')
+print()  # Newline
 
-    def __next__(self):
-        if self.counter < self.limit:
-            self.counter += 1
-            return self.counter
-        else:
-            raise StopIteration
+# Generator for Fibonacci sequence
+print("\nc) Generator for Fibonacci sequence:")
 
-it = MyIterator(5)
-for i in it:
-    print(i)  # Output: 1 2 3 4 5
-    
-    
-    
-# Generators
+def fibonacci(limit):
+    a, b = 0, 1
+    while a < limit:
+        yield a
+        a, b = b, a + b
 
-Generators are a simpler way to create iterators using a function with yield statement.
-They allow you to iterate through a set of values lazily.
-
-
-def my_generator(limit):
-    counter = 0
-    while counter < limit:
-        counter += 1
-        yield counter
-
-gen = my_generator(5)
-for i in gen:
-    print(i)
+print("Fibonacci numbers up to 100:")
+for num in fibonacci(100):
+    print(num, end=' ')
+print()  # Newline
 
 
-def countdown(n):
-    while n > 0:
-        yield n
-        n -= 1
+# 6. Decorators: Adding Functionality to Functions
+# ----------------------------------------------
+# Decorators are a way to modify or enhance functions without changing their code.
+# Think of them like "wrapping" a function with another function.
 
-for i in countdown(5):
-    print(i)  # Output: 5 4 3 2 1
-Decorators
-Notes
-Decorators are functions that modify the behavior of another function.
-They are often used for logging, access control, and monitoring.
+print("\n6. Decorators - Enhancing functions:")
 
+# A simple decorator to measure execution time
+import time
 
-def my_decorator(func):
+def timer_decorator(func):
     def wrapper(*args, **kwargs):
-        # Code to execute before the function call
+        start = time.time()
         result = func(*args, **kwargs)
-        # Code to execute after the function call
+        end = time.time()
+        print(f"{func.__name__} took {end - start:.6f} seconds to run")
         return result
     return wrapper
 
-@my_decorator
-def my_function():
-    pass
+# Apply the decorator to a function
+@timer_decorator
+def slow_function():
+    """This function just wastes time"""
+    total = 0
+    for i in range(1000000):
+        total += i
+    return total
 
+# Run the decorated function
+print("\nRunning slow_function:")
+result = slow_function()
+print(f"Result: {result}")
 
-def debug(func):
+# A decorator that counts function calls
+def counter_decorator(func):
     def wrapper(*args, **kwargs):
-        print(f"Calling {func.__name__} with {args} and {kwargs}")
-        result = func(*args, **kwargs)
-        print(f"{func.__name__} returned {result}")
-        return result
+        wrapper.count += 1
+        print(f"This is call #{wrapper.count} to {func.__name__}")
+        return func(*args, **kwargs)
+    wrapper.count = 0  # Initialize the counter
     return wrapper
 
-@debug
-def add(a, b):
-    return a + b
+# Apply the counter decorator
+@counter_decorator
+def greet(name):
+    return f"Hello, {name}!"
 
-add(2, 3)
-# Output:
-# Calling add with (2, 3) and {}
-# add returned 5
-
-
-
-
+# Test the counter
+print("\nTesting counter decorator:")
+print(greet("Alice"))
+print(greet("Bob"))
+print(greet("Charlie"))
 
 
-
-Regular Expressions
-
-Regular expressions (regex) are patterns used to match character combinations in strings.
-Python's re module provides functions to work with regex.
-
-
-re Module Functions
-
-match: Checks for a match only at the beginning of the string.
-search: Searches for the first location where the regex pattern produces a match.
-findall: Finds all matches of a pattern in a string.
-sub: Replaces occurrences of a pattern with a replacement string.
-
+# 7. Regular Expressions: Pattern Matching in Text
+# ----------------------------------------------
+# Regular expressions provide a powerful way to search, match, and manipulate text
+# based on patterns.
 
 import re
 
-# match
-result = re.match(pattern, string)
+print("\n7. Regular Expressions - Pattern matching:")
 
-# search
-result = re.search(pattern, string)
+# A simple example: finding email addresses
+text = """
+Contact information:
+- John Doe: john.doe@example.com
+- Jane Smith: jane_smith@company.org
+- Support Team: support@website.co.uk
+"""
 
-# findall
-result = re.findall(pattern, string)
+print("\nText with email addresses:")
+print(text)
 
-# sub
-result = re.sub(pattern, repl, string)
+# Find all email addresses
+email_pattern = r'[\w.+-]+@[\w-]+\.[\w.-]+'
+emails = re.findall(email_pattern, text)
 
+print("\nExtracted email addresses:")
+for email in emails:
+    print(f"- {email}")
 
-import re
+# Replace email addresses with a masked version
+masked_text = re.sub(email_pattern, '[EMAIL PROTECTED]', text)
+print("\nText with masked emails:")
+print(masked_text)
 
-text = "The rain in Spain stays mainly in the plain."
+# Validating a phone number format
+def is_valid_phone(phone):
+    pattern = r'^\(\d{3}\) \d{3}-\d{4}$'
+    return bool(re.match(pattern, phone))
 
-# match
-result = re.match(r"The", text)
-print(result)  # Output: <re.Match object; span=(0, 3), match='The'>
-
-# search
-result = re.search(r"Spain", text)
-print(result)  # Output: <re.Match object; span=(12, 17), match='Spain'>
-
-# findall
-result = re.findall(r"in", text)
-print(result)  # Output: ['in', 'in', 'in']
-
-# sub
-result = re.sub(r"Spain", "France", text)
-print(result)  # Output: The rain in France stays mainly in the plain.
-
-
-
-Example with Detailed Patterns
-
-import re
-
-# Define a sample text
-text = "Contact us at support@example.com or sales@example.com"
-
-# Pattern to match email addresses
-pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
-
-# findall
-emails = re.findall(pattern, text)
-print(emails)  # Output: ['support@example.com', 'sales@example.com']
-
-# search
-first_email = re.search(pattern, text)
-print(first_email.group())  # Output: support@example.com
-
-# sub
-masked_text = re.sub(pattern, "[email protected]", text)
-print(masked_text)  # Output: Contact us at [email protected] or [email protected]
+# Test the phone validator
+print("\nValidating phone numbers:")
+phones = ['(123) 456-7890', '123-456-7890', '(123)456-7890', '(123) 456-78901']
+for phone in phones:
+    if is_valid_phone(phone):
+        print(f"{phone} is valid")
+    else:
+        print(f"{phone} is NOT valid")
