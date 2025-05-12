@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Demo - About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Flask Demo Application</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}" class="active">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="about">
+            <h2>About This Application</h2>
+            <p>This is a simple Flask application created to demonstrate various Flask features:</p>
+            <ul>
+                <li>Routing and URL building</li>
+                <li>Template rendering with Jinja2</li>
+                <li>Static file serving (CSS, JavaScript)</li>
+                <li>RESTful API endpoints</li>
+                <li>Request handling (GET, POST)</li>
+            </ul>
+            <p>The application maintains a simple in-memory database of items that can be viewed and manipulated through the API.</p>
+        </section>
+        
+        <section class="api-docs">
+            <h2>API Documentation</h2>
+            <h3>Endpoints:</h3>
+            <ul>
+                <li><code>GET /api/items</code> - Get all items</li>
+                <li><code>GET /api/items/{id}</code> - Get a specific item by ID</li>
+                <li><code>POST /api/items</code> - Create a new item</li>
+            </ul>
+            
+            <h3>Example API Usage:</h3>
+            <pre><code>// Get all items
+fetch('/api/items')
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+// Get item with ID 1
+fetch('/api/items/1')
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+// Create a new item
+fetch('/api/items', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        name: 'New Item',
+        description: 'This is a new item created via API'
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data));</code></pre>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Flask Demo Application</p>
+    </footer>
+</body>
+</html>
