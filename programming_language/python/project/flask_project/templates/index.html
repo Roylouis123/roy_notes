@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Demo - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Flask Demo Application</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <h2>Welcome to our Flask Demo</h2>
+            <p>This is a simple Flask application demonstrating routes, templates, and API endpoints.</p>
+        </section>
+        
+        <section class="items">
+            <h2>Items</h2>
+            <div class="item-container">
+                {% for item in items %}
+                <div class="item-card">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <button onclick="getItemDetails({{ item.id }})">View Details</button>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
+        <section class="item-details">
+            <h2>Item Details</h2>
+            <div id="item-detail-container" style="display: none;">
+                <h3 id="item-name"></h3>
+                <p id="item-description"></p>
+                <p>Item ID: <span id="item-id"></span></p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Flask Demo Application</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
