@@ -2,6 +2,27 @@
 
 A simple backend API server built using FastAPI framework with CRUD operations for users and products.
 
+## 🚨 Windows Installation Issues
+
+If you're seeing errors related to Rust or "metadata-generation-failed", you have two options:
+
+### Option 1: Install Without Rust (Recommended)
+
+1. Run the Windows setup script that uses pre-built binaries:
+   ```
+   windows_setup.bat
+   ```
+
+2. This will set up a virtual environment and install all dependencies without requiring Rust.
+
+### Option 2: Install With Rust
+
+1. Install Rust by following the instructions in `RUST_INSTALL_GUIDE.md`
+2. Run the setup script that uses Rust for compilation:
+   ```
+   windows_setup_with_rust.bat
+   ```
+
 ## Features
 
 - Fast API endpoints with automatic validation
@@ -14,12 +35,18 @@ A simple backend API server built using FastAPI framework with CRUD operations f
 
 ```
 fast_api/
-├── main.py              # Main FastAPI application
-├── requirements.txt     # Python dependencies
-└── README.md           # Documentation
+├── main.py                  # Main FastAPI application
+├── requirements.txt         # Python dependencies
+├── requirements-no-rust.txt # Dependencies without Rust compilation
+├── windows_setup.bat        # Windows setup without Rust
+├── windows_setup_with_rust.bat # Windows setup with Rust
+├── test_api.py              # API test script
+└── README.md                # Documentation
 ```
 
-## Installation and Setup
+## Standard Installation
+
+If you're not on Windows or not experiencing issues:
 
 1. Create a virtual environment (recommended):
    ```
@@ -103,3 +130,25 @@ curl -X 'GET' \
   'http://127.0.0.1:8000/search?q=phone&min_price=500&max_price=1000' \
   -H 'accept: application/json'
 ```
+
+## Testing the API
+
+Once the server is running:
+- API documentation: http://localhost:8000/docs
+- Alternative API docs: http://localhost:8000/redoc
+
+You can use the included test script to verify the API is working:
+```
+python test_api.py
+```
+
+## Troubleshooting
+
+If you encounter any issues, check the following:
+
+1. Python version - Python 3.8 or higher is required
+2. Virtual environment is activated
+3. All dependencies are installed
+4. No other services are using port 8000
+
+For Windows-specific issues, see the installation options at the top of this README.

@@ -1,0 +1,6 @@
+# These versions have pre-built wheels for Windows and don't require Rust compilation
+fastapi==0.100.1
+uvicorn==0.23.0
+pydantic==1.10.13  # Using older pydantic 1.x which doesn't require Rust
+starlette==0.27.0
+typing-extensions==4.8.0
