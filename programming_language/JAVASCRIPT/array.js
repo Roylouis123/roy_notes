@@ -10,26 +10,28 @@ const num2 = [3, 6, 9, 7, 5];
 // Traversal involves visiting each element of the array exactly once.
 // It's commonly done using loops such as for loops or forEach method.
 
-for (let i = 0; i < arr.length; i++) {
-  console.log(arr[i]);
-}
-
 // For loop in array
-for (let i = 0; i < arr.length; i++) {
+for (let i = 0; i < arr.length; i++) { // used mainly to get the index of the element
   console.log(arr[i]);
 }
 
 // For of loop in array
-for (let key of arr) {
+for (let key of arr) { // used mainly to get the value of the element
   console.log(key);
 }
 
 // While loop in array
 let i = 0;
-while (i < arr.length) {
+while (i < arr.length) {  // used mainly to get the index of before the element
   console.log(arr[i]);
   i++;
 }
+
+difference between for , for of loop and while loop
+// For loop is used when you need to know the index of the element.
+// For of loop is used when you only need the value of the element.
+// While loop is used when you want to perform an action until a certain condition is met.
+
 
 // forEach method
 arr.forEach((element) => console.log(element));
@@ -52,8 +54,8 @@ console.log(arr1.find((element) => element > 3));
 console.log(arr1.findIndex((element) => element > 3));
 // Output: 0 - returns the index of the first element in the array that satisfies the provided testing function
 
-// // LastIndexOf method
-// console.log(arr.lastIndexOf("munna")); // Output: 1 - returns the last index of "munna" in the array
+// LastIndexOf method
+console.log(arr.lastIndexOf("munna")); // Output: 1 - returns the last index of "munna" in the array
 
 //-----------------------------------------------Insertion-----------------------------------------------
 
