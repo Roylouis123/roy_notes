@@ -1,371 +1,1034 @@
-Absolutely. From now on, use this format for the notes.
+# Module 2 — Algorithms
 
-# Module 2 — Algorithms: Full Notes
+### Complete Learning Notes
 
-## 1. Algorithm
-
-**What it does:**
-A step-by-step procedure to solve a problem.
-
-**Example:**
-
-```text
-Input: [5, 2, 8]
-       ↓
-Find largest
-       ↓
-Output: 8
-```
-
-**Real-world:** Login validation, payment processing, recommendations.
-
-**When to use:** Every time you need to transform input into a result.
+> **Core idea:** An algorithm is a set of steps used to transform **input → result**.
 
 ---
 
-# 2. Linear Search
+# Part 1 — Algorithm Fundamentals
 
-**What it does:**
-Checks elements one by one.
+## 1. What is an Algorithm?
 
-**Example:**
+### What
+
+A step-by-step method for solving a problem.
+
+### Mental model
+
+Think of a **recipe**:
 
 ```text
-[10, 20, 30, 40]
+Ingredients → Steps → Food
+```
+
+Programming:
+
+```text
+Input → Algorithm → Output
+```
+
+### Example
+
+Problem: Find the largest number.
+
+```text
+Data: [5, 2, 9, 3]
+
+Start with 5
+5 > 2 → keep 5
+9 > 5 → keep 9
+3 < 9 → keep 9
+
+Result → 9
+```
+
+### Real-world
+
+An e-commerce system:
+
+```text
+User searches "Nike shoes"
+        ↓
+Find matching products
+        ↓
+Filter
+        ↓
+Rank
+        ↓
+Show results
+```
+
+Each step is part of an algorithm.
+
+### When to use
+
+Whenever you need a **repeatable process to solve a problem**.
+
+### Remember
+
+> **Algorithm = recipe for solving a problem.**
+
+---
+
+# Part 2 — Linear Search
+
+## 2. Linear Search
+
+### What
+
+Searches by checking items **one by one**.
+
+### Mental model
+
+Looking for your friend in a classroom:
+
+```text
+Person 1 ❌
+Person 2 ❌
+Person 3 ❌
+Person 4 ✅
+```
+
+### Data example
+
+Find `30`:
+
+```text
+[10, 20, 30, 40, 50]
+ ↑
+10 ≠ 30
+
+     ↑
+20 ≠ 30
+
           ↑
-        Find 30
+        30 ✓
 ```
 
-**Real-world:** Searching a small/unsorted list of users.
+### How it works
 
-**When to use:** Data is unsorted or small.
+```python
+for number in numbers:
+    if number == target:
+        return number
+```
+
+It starts at the beginning and keeps checking until it finds the target.
+
+### Real-world
+
+Searching a small list of:
+
+```text
+Recent notifications
+Recent messages
+Small list of products
+```
+
+### When to use
+
+Use it when:
+
+* Data is unsorted
+* Dataset is small
+* You only need occasional searching
+
+### Remember
+
+> **Linear search = check one by one.**
 
 ---
 
-# 3. Binary Search
+# Part 3 — Binary Search
 
-**What it does:**
-Repeatedly cuts a **sorted** search area in half.
+## 3. Binary Search
 
-**Example:**
+### What
+
+Searches a **sorted** collection by repeatedly cutting the search area roughly in half.
+
+### Mental model
+
+Imagine finding a word in a dictionary.
+
+You don't start from page 1.
+
+You open somewhere in the middle.
+
+```text
+A ───────── M ───────── Z
+              ↑
+           Start here
+```
+
+### Data example
+
+Find `70`:
 
 ```text
 [10, 20, 30, 40, 50, 60, 70]
              ↑
-           middle
+            40
 ```
 
-Looking for `60` → ignore the left half → continue searching right.
+`70 > 40`
 
-**Real-world:** Searching sorted IDs, dictionaries, version ranges.
-
-**When to use:** Data is sorted and you need repeated searching.
-
----
-
-# 4. Bubble Sort
-
-**What it does:**
-Repeatedly swaps neighboring elements that are in the wrong order.
-
-**Example:**
+So ignore:
 
 ```text
-[5, 2, 1]
-
-5 > 2 → [2, 5, 1]
-5 > 1 → [2, 1, 5]
+[10, 20, 30, 40]
 ```
 
-**Real-world:** Mostly educational; rarely appropriate in production.
+Search:
 
-**When to use:** Learning sorting concepts, not production systems.
+```text
+[50, 60, 70]
+         ↑
+        70 ✓
+```
+
+### How it works
+
+```text
+1. Look at middle
+2. Compare target with middle
+3. Decide left or right
+4. Throw away the other half
+5. Repeat
+```
+
+### Real-world
+
+* Searching sorted records
+* Dictionary lookup
+* Finding a version in a sorted list
+* Searching within ordered IDs
+
+### When to use
+
+Use when the data is **sorted** and you need efficient repeated searching.
+
+### Remember
+
+> **Binary search = check middle → eliminate half → repeat.**
 
 ---
 
-# 5. Selection Sort
+# Part 4 — Sorting
 
-**What it does:**
-Finds the smallest element and places it in the correct position.
+Sorting means putting data into an order.
 
-**Example:**
+```text
+Before:
+[5, 2, 8, 1]
+
+After:
+[1, 2, 5, 8]
+```
+
+---
+
+# 4.1 Bubble Sort
+
+### What
+
+Repeatedly compares neighboring elements and swaps them if they're in the wrong order.
+
+### Mental model
+
+Large elements slowly **bubble toward the end**.
+
+### Example
+
+```text
+[5, 2, 8, 1]
+
+5 > 2
+↓
+[2, 5, 8, 1]
+
+8 > 1
+↓
+[2, 5, 1, 8]
+```
+
+Continue until everything is ordered.
+
+### Real-world
+
+Mostly useful for **learning sorting**, not production software.
+
+### When to use
+
+Almost never in production.
+
+### Remember
+
+> **Bubble Sort = compare neighbors and swap.**
+
+---
+
+# 4.2 Selection Sort
+
+### What
+
+Find the smallest element and put it in the correct position.
+
+### Example
 
 ```text
 [5, 2, 8, 1]
 
 Smallest = 1
-↓
+
+↓ move 1 to front
+
 [1, 2, 8, 5]
 ```
 
-**Real-world:** Rarely used directly.
-
-**When to use:** Learning or very simple small datasets.
-
----
-
-# 6. Insertion Sort
-
-**What it does:**
-Builds a sorted section one element at a time.
-
-**Example:**
+Then find the smallest remaining element.
 
 ```text
-[5, 2, 8]
-
-5
-↓
-2 inserted before 5
-↓
-[2, 5]
+[1, 2, 8, 5]
+    ↑
+already correct
 ```
 
-**Real-world:** Useful when data is already mostly sorted.
+### Mental model
 
-**When to use:** Small or nearly sorted data.
+> Find the next correct item and place it.
+
+### Real-world
+
+Rarely used directly.
+
+### When to use
+
+Mainly for learning algorithm fundamentals or very simple situations.
+
+### Remember
+
+> **Selection = select the smallest/best remaining item.**
 
 ---
 
-# 7. Merge Sort
+# 4.3 Insertion Sort
 
-**What it does:**
-Splits data, sorts the pieces, then merges them.
+### What
 
-**Example:**
+Builds a sorted section **one element at a time**.
+
+### Mental model
+
+Think about arranging playing cards in your hand.
+
+```text
+Cards:
+
+5
+
+Add 2:
+[2, 5]
+
+Add 8:
+[2, 5, 8]
+
+Add 1:
+[1, 2, 5, 8]
+```
+
+### How it works
+
+Take the next element and insert it into the correct place in the already-sorted section.
+
+### Real-world
+
+Useful when data is:
+
+* Small
+* Already mostly sorted
+
+### Remember
+
+> **Insertion Sort = take one item and insert it into the correct position.**
+
+---
+
+# 4.4 Merge Sort
+
+### What
+
+Splits data into smaller pieces, sorts them, then combines them.
+
+### Mental model
+
+> **Divide → Solve → Combine**
+
+### Example
 
 ```text
 [8, 3, 5, 1]
 
-[8,3] [5,1]
-   ↓
-[3,8] [1,5]
-   ↓
-[1,3,5,8]
+       ↓ split
+
+[8, 3]   [5, 1]
+
+       ↓ split
+
+[8] [3] [5] [1]
+
+       ↓ sort
+
+[3, 8]   [1, 5]
+
+       ↓ merge
+
+[1, 3, 5, 8]
 ```
 
-**Real-world:** Large-data sorting and external/file-based sorting concepts.
+### How it works
 
-**When to use:** When predictable sorting performance and stable sorting are important.
+1. Divide the data
+2. Keep dividing
+3. Sort small pieces
+4. Merge them back together
+
+### Real-world
+
+Useful concept for sorting large datasets and data that may not fit conveniently into memory at once.
+
+### When to use
+
+When you need predictable sorting behavior and a divide-and-conquer approach.
+
+### Remember
+
+> **Merge Sort = split → sort → merge.**
 
 ---
 
-# 8. Quick Sort
+# 4.5 Quick Sort
 
-**What it does:**
-Chooses a pivot and separates smaller and larger values.
+### What
 
-**Example:**
+Chooses a **pivot** and separates smaller and larger values around it.
+
+### Example
 
 ```text
 [5, 2, 8, 1, 6]
 
 Pivot = 5
 
-[2,1]  5  [8,6]
+Smaller       Pivot       Larger
+[2, 1]          5          [8, 6]
 ```
 
-Then recursively sorts both sides.
+Then sort each side.
 
-**Real-world:** General-purpose sorting concepts and partition-based algorithms.
+```text
+[1, 2]  5  [6, 8]
 
-**When to use:** When implementing/customizing sorting and partitioning logic.
+↓
+[1, 2, 5, 6, 8]
+```
+
+### Mental model
+
+Imagine a teacher says:
+
+> "Everyone shorter than me stand left. Everyone taller stand right."
+
+Then repeat the same process for each group.
+
+### Real-world
+
+Useful as a general sorting algorithm concept and for partition-based problems.
+
+### When to use
+
+When implementing/customizing sorting or partitioning logic. In normal application code, use the language's optimized sort.
+
+### Remember
+
+> **Quick Sort = choose pivot → partition → repeat.**
 
 ---
 
-# 9. Two Pointers
+# Part 5 — Two Pointers
 
-**What it does:**
-Uses two positions to efficiently scan data.
+## 5. Two Pointers
 
-**Example:**
+### What
 
-Find two numbers adding to `10`:
+Uses two positions to move through data intelligently.
+
+### Mental model
+
+Two people searching from **opposite ends**.
+
+### Example
+
+Find two numbers whose sum is `10`:
 
 ```text
 [1, 2, 3, 4, 6, 8, 9]
  ↑                 ↑
- L                 R
+left              right
+```
 
+```text
 1 + 9 = 10 ✓
 ```
 
-**Real-world:** Comparing sorted customer/product data, duplicate removal, matching records.
+Another example:
 
-**When to use:** Usually when working with sorted arrays or when processing from both ends.
+```text
+2 + 9 = 11
+```
+
+Too large → move the right pointer left.
+
+```text
+2 + 8 = 10 ✓
+```
+
+### How it works
+
+For sorted data:
+
+```text
+sum < target → move left forward
+sum > target → move right backward
+sum = target → found
+```
+
+### Real-world
+
+* Matching two sorted datasets
+* Removing duplicates
+* Comparing data from both ends
+* Checking if a string is a palindrome
+
+### When to use
+
+When a problem involves:
+
+* Sorted arrays
+* Pairs
+* Two ends of a sequence
+
+### Remember
+
+> **Two Pointers = two positions moving intelligently.**
 
 ---
 
-# 10. Sliding Window
+# Part 6 — Sliding Window
 
-**What it does:**
-Maintains a moving section of data.
+## 6. Sliding Window
 
-**Example:**
+### What
 
-Maximum sum of 3 consecutive numbers:
+Looks at a **continuous section** of data and moves that section.
+
+### Mental model
+
+Imagine looking through a window on a moving train.
+
+You don't rebuild the view every time. You move the window.
+
+### Example
+
+Find the largest sum of 3 consecutive numbers:
 
 ```text
 [2, 5, 1, 8, 3]
 
-[2, 5, 1] → 8
-   [5, 1, 8] → 14 ✓
-      [1, 8, 3] → 12
+Window:
+[2, 5, 1] = 8
+
+Move window:
+
+   [5, 1, 8] = 14
+
+Move again:
+
+      [1, 8, 3] = 12
 ```
 
-**Real-world:** API rate limiting, website traffic monitoring, recent activity analysis.
+Answer:
 
-**When to use:** Continuous/subarray/substring problems involving a moving range.
+```text
+14
+```
+
+### How it works
+
+When the window moves:
+
+```text
+Remove → element leaving
+Add    → element entering
+```
+
+Instead of calculating the entire window again.
+
+### Real-world
+
+Website traffic:
+
+```text
+10:00 → 100 requests
+10:01 → 150
+10:02 → 300
+10:03 → 200
+```
+
+You might ask:
+
+> "What was the highest traffic during any 3-minute period?"
+
+Sliding Window is useful.
+
+### When to use
+
+Look for words like:
+
+* consecutive
+* continuous
+* substring
+* subarray
+* last N items
+* window
+
+### Remember
+
+> **Sliding Window = move a continuous range.**
 
 ---
 
-# 11. Prefix Sum
+# Part 7 — Prefix Sum
 
-**What it does:**
-Pre-calculates cumulative totals so range sums can be answered quickly.
+## 7. Prefix Sum
 
-**Example:**
+### What
+
+Pre-calculates cumulative totals so later range calculations are easier.
+
+### Example
+
+Original:
 
 ```text
-Data:   [2, 5, 3, 7]
-
-Prefix: [2, 7, 10, 17]
+[2, 5, 3, 7]
 ```
 
-Sum from index `1` to `3`:
+Prefix:
+
+```text
+[2, 7, 10, 17]
+```
+
+Because:
+
+```text
+2
+2+5 = 7
+2+5+3 = 10
+2+5+3+7 = 17
+```
+
+Want:
+
+```text
+5 + 3 + 7
+```
+
+Use:
 
 ```text
 17 - 2 = 15
 ```
 
-**Real-world:** Sales reports, transaction totals, analytics dashboards.
+### Mental model
 
-**When to use:** Many queries ask for sums over different ranges.
-
----
-
-# 12. Hashing
-
-**What it does:**
-Converts a value/key into a location for fast lookup.
-
-**Example:**
+Think of a **running bank balance**.
 
 ```text
-"user123"
-    ↓
-  hash
-    ↓
-bucket 42
+Day 1 → ₹100
+Day 2 → ₹150
+Day 3 → ₹180
 ```
 
-**Real-world:** Caches, dictionaries, databases, authentication/session lookups.
+The cumulative value lets you calculate ranges quickly.
 
-**When to use:** You frequently need **fast lookup by a key**.
+### Real-world
+
+* Sales dashboards
+* Revenue reports
+* Analytics
+* Transaction history
+
+### When to use
+
+When you have **many range-sum queries** on the same data.
+
+### Remember
+
+> **Prefix Sum = remember the running total.**
 
 ---
 
-# 13. Fast & Slow Pointers
+# Part 8 — Hashing
 
-**What it does:**
-Uses two pointers moving at different speeds.
+## 8. Hashing
 
-**Example:**
+### What
+
+Converts a key into a value/location that helps find data quickly.
+
+### Mental model
+
+A hotel receptionist:
+
+```text
+Guest name
+    ↓
+Room number
+    ↓
+Find guest
+```
+
+### Example
+
+```text
+"user_101"
+     ↓
+  hash()
+     ↓
+ bucket 42
+     ↓
+ user data
+```
+
+### Real-world
+
+A backend:
+
+```python
+user = users_by_id[101]
+```
+
+The system doesn't normally scan every user.
+
+### Used for
+
+* Hash Maps
+* Sets
+* Caches
+* Database indexes/concepts
+* Fast lookup systems
+
+### When to use
+
+When you frequently ask:
+
+> **"Do I have this?"**
+> **"Where is the value for this key?"**
+
+### Remember
+
+> **Hashing = convert key → useful lookup location.**
+
+---
+
+# Part 9 — Fast & Slow Pointers
+
+## 9. Fast & Slow Pointers
+
+### What
+
+Two pointers move at different speeds.
 
 ```text
 Slow → 1 step
 Fast → 2 steps
+```
 
+### Example
+
+Linked list:
+
+```text
 1 → 2 → 3 → 4 → 5
     ↑       ↑
    slow    fast
 ```
 
-**Real-world:** Detecting loops in linked structures or repeated states.
+Fast moves twice as quickly.
 
-**When to use:** Linked lists, cycle detection, finding middle elements.
+### Why is this useful?
 
----
-
-# 14. Recursion
-
-**What it does:**
-A function solves a problem by calling itself on a smaller version of the problem.
-
-**Example:**
+Suppose a linked list has a loop:
 
 ```text
-factorial(4)
-
-4 × factorial(3)
-      ↓
-    3 × factorial(2)
-          ↓
-        2 × factorial(1)
+1 → 2 → 3 → 4
+        ↑   ↓
+        ← ←
 ```
 
-**Real-world:** File/folder traversal, trees, nested JSON, graph algorithms.
-
-**When to use:** When a problem naturally contains **smaller versions of itself**.
-
----
-
-# 15. Divide & Conquer
-
-**What it does:**
-Breaks a large problem into smaller problems, solves them, then combines the results.
-
-**Example:**
+Eventually:
 
 ```text
-Large problem
-     ↓
- ┌───┴───┐
-Small   Small
- ↓       ↓
-Solve   Solve
- └───┬───┘
-   Combine
+slow
+  ↓
+  X
+  ↑
+fast
 ```
 
-**Real-world:** Large-scale searching and sorting.
+They meet.
 
-**When to use:** When a problem can be cleanly divided into independent smaller problems.
+That tells us there is a cycle.
+
+### Real-world
+
+* Detecting loops
+* Finding the middle of a linked list
+* Detecting repeated states
+
+### When to use
+
+When you see:
+
+* Linked lists
+* Cycle detection
+* "Find middle"
+* Two moving positions
+
+### Remember
+
+> **Fast + Slow = useful for cycles and middle positions.**
 
 ---
 
-# 16. Greedy Algorithm
+# Part 10 — Recursion
 
-**What it does:**
-Makes the best-looking decision **right now**, hoping it leads to the best overall result.
+## 10. Recursion
 
-**Example:**
+### What
 
-Making change:
+A function calls **itself** to solve a smaller version of the same problem.
+
+### Mental model
+
+Imagine opening nested boxes:
 
 ```text
-Amount = ₹18
-
-Choose ₹10
-Choose ₹5
-Choose ₹2
-Choose ₹1
+Box
+ ↓
+Box
+ ↓
+Box
+ ↓
+Empty
 ```
 
-**Real-world:** Scheduling, resource allocation, routing, compression.
+Then you return outward.
 
-**When to use:** When the problem has a proven greedy strategy.
+### Example
 
-> Don't assume greedy always works. Sometimes a locally best choice produces a globally bad result.
+Factorial:
+
+```text
+4! = 4 × 3 × 2 × 1
+```
+
+The algorithm thinks:
+
+```text
+4! = 4 × 3!
+3! = 3 × 2!
+2! = 2 × 1!
+```
+
+Eventually:
+
+```text
+1! = 1
+```
+
+Then results return upward.
+
+### Important
+
+Every recursion needs a **base case**.
+
+```python
+if n == 1:
+    return 1
+```
+
+Otherwise it can continue forever.
+
+### Real-world
+
+* File/folder traversal
+* Tree traversal
+* Nested JSON
+* Graph algorithms
+* Backtracking
+
+### When to use
+
+When a problem naturally contains **smaller versions of itself**.
+
+### Remember
+
+> **Recursion = solve a smaller version of the same problem.**
 
 ---
 
-# 17. Backtracking
+# Part 11 — Divide & Conquer
 
-**What it does:**
-Tries a choice → continues → if it fails, goes back and tries another.
+## 11. Divide & Conquer
 
-**Example:**
+### What
+
+Break a large problem into smaller problems, solve them, then combine the results.
+
+### Mental model
+
+Instead of asking one person to clean a huge room:
+
+```text
+Huge room
+   ↓
+Divide
+   ↓
+┌───────┬───────┐
+Room A  Room B
+```
+
+Each gets solved separately.
+
+### Example
+
+Merge Sort:
+
+```text
+[8, 3, 5, 1]
+
+↓ divide
+
+[8,3] [5,1]
+
+↓ solve
+
+[3,8] [1,5]
+
+↓ combine
+
+[1,3,5,8]
+```
+
+### Real-world
+
+Used in many large-data and distributed processing techniques.
+
+### When to use
+
+When a problem can be broken into **smaller mostly independent problems**.
+
+### Remember
+
+> **Divide → solve → combine.**
+
+---
+
+# Part 12 — Greedy Algorithms
+
+## 12. Greedy
+
+### What
+
+Makes the **best-looking choice right now**.
+
+### Mental model
+
+You're climbing stairs and always choose the step that looks best immediately.
+
+### Example
+
+Suppose you need ₹18:
+
+```text
+₹10
+₹5
+₹2
+₹1
+```
+
+Greedy chooses:
+
+```text
+10 → 5 → 2 → 1
+```
+
+### Important
+
+Greedy does **not always produce the globally best answer**.
+
+You need to know that the problem supports a greedy strategy.
+
+### Real-world
+
+* Scheduling
+* Resource allocation
+* Network routing
+* Compression algorithms
+
+### When to use
+
+When you can prove that making the best local choice leads to the optimal final solution.
+
+### Remember
+
+> **Greedy = best choice now.**
+
+---
+
+# Part 13 — Backtracking
+
+## 13. Backtracking
+
+### What
+
+Try a choice → continue → if it fails → **go back and try another choice**.
+
+### Mental model
+
+Solving a maze:
+
+```text
+Start
+  ↓
+Path A
+  ↓
+Dead end ❌
+  ↓
+Go back
+  ↓
+Path B
+  ↓
+Success ✓
+```
+
+### Example
+
+Trying combinations:
 
 ```text
 Choose A
@@ -379,98 +1042,260 @@ Backtrack
 Choose C
 ```
 
-**Real-world:** Sudoku, maze solving, configuration generation, constraint problems.
+### Real-world
 
-**When to use:** When you need to explore many possible combinations and reject invalid paths.
+* Sudoku
+* Maze solving
+* Password/combination generation
+* Configuration problems
+
+### When to use
+
+When you must explore **many possible choices** and reject invalid ones.
+
+### Remember
+
+> **Backtracking = try → fail → undo → try another.**
 
 ---
 
-# 18. Dynamic Programming
+# Part 14 — Dynamic Programming
 
-**What it does:**
-Solves repeated subproblems once and **remembers their results**.
+## 14. Dynamic Programming
 
-**Example:**
+### What
+
+Solves repeated subproblems **once** and remembers their answers.
+
+### Mental model
+
+Imagine solving 100 math questions and realizing:
+
+> "I already calculated this answer earlier."
+
+So you save it and reuse it.
+
+### Example
+
+Fibonacci:
 
 ```text
-fib(5)
-
-fib(4)
- ├── fib(3)
- └── fib(2)
-
-Repeated calculations
-        ↓
-Store results
-        ↓
-Reuse them
+F(5)
+├── F(4)
+│   ├── F(3)
+│   └── F(2)
+└── F(3)
 ```
 
-**Real-world:** Pricing optimization, resource allocation, route optimization, sequence problems.
+Notice `F(3)` gets calculated repeatedly.
 
-**When to use:** When:
+Dynamic Programming says:
 
-1. The same smaller problems appear repeatedly.
-2. Their results can be reused.
+```text
+Calculate F(3) once
+       ↓
+Save result
+       ↓
+Reuse it
+```
+
+### Two common approaches
+
+**Memoization**
+
+```text
+Calculate → Save → Reuse
+```
+
+**Tabulation**
+
+```text
+Start from small answers
+→ build bigger answers
+```
+
+### Real-world
+
+* Route optimization
+* Pricing
+* Resource allocation
+* Sequence matching
+
+### When to use
+
+When:
+
+1. Smaller problems repeat.
+2. Their answers can be reused.
+
+### Remember
+
+> **Dynamic Programming = don't solve the same subproblem twice.**
 
 ---
 
-# 19. BFS
+# Part 15 — BFS
 
-**What it does:**
-Explores a graph level by level.
+## 15. Breadth-First Search
 
-**Example:**
+### What
+
+Explores a graph **level by level**.
+
+### Example
 
 ```text
-      A
+        A
+       / \
+      B   C
      / \
-    B   C
-   / \
-  D   E
+    D   E
 ```
+
+BFS:
+
+```text
+A
+↓
+B C
+↓
+D E
+```
+
+Order:
 
 ```text
 A → B → C → D → E
 ```
 
-**Real-world:** Finding the shortest number of connections between people.
+### How it works
 
-**When to use:** Shortest path in an **unweighted graph**, level-by-level exploration.
+Uses a **Queue**.
+
+```text
+Put A in queue
+
+A comes out
+→ add B, C
+
+B comes out
+→ add D, E
+```
+
+### Real-world
+
+Social network:
+
+```text
+You
+ ↓
+Friends
+ ↓
+Friends of friends
+ ↓
+Friends 3 levels away
+```
+
+### When to use
+
+Especially useful for:
+
+* Shortest path in unweighted graphs
+* Level-by-level exploration
+* Minimum number of connections
+
+### Remember
+
+> **BFS = wide first = Queue.**
 
 ---
 
-# 20. DFS
+# Part 16 — DFS
 
-**What it does:**
-Explores one path deeply before trying another.
+## 16. Depth-First Search
 
-**Example:**
+### What
+
+Explores one path **as deeply as possible**, then comes back.
+
+### Example
 
 ```text
-      A
+        A
+       / \
+      B   C
      / \
-    B   C
-   / \
-  D   E
+    D   E
 ```
+
+Possible DFS:
 
 ```text
 A → B → D → E → C
 ```
 
-**Real-world:** File systems, dependency exploration, graph traversal.
+### How it works
 
-**When to use:** Deep exploration, connected components, cycle detection.
+Uses:
+
+```text
+Stack
+```
+
+or recursion.
+
+```text
+A
+ ↓
+B
+ ↓
+D
+ ↓
+Back
+ ↓
+E
+ ↓
+Back
+ ↓
+C
+```
+
+### Real-world
+
+File system:
+
+```text
+Project
+├── src
+│   ├── components
+│   └── services
+└── tests
+```
+
+DFS can enter one folder and explore everything inside before moving to another.
+
+### When to use
+
+* Deep exploration
+* File/folder traversal
+* Cycle detection
+* Connected components
+
+### Remember
+
+> **DFS = deep first = Stack.**
 
 ---
 
-# 21. Dijkstra's Algorithm
+# Part 17 — Dijkstra
 
-**What it does:**
-Finds the shortest path from one node to other nodes when edge weights are non-negative.
+## 17. Dijkstra's Algorithm
 
-**Example:**
+### What
+
+Finds the **shortest path** in a weighted graph when edge weights are non-negative.
+
+### Example
 
 ```text
 A ──5── B
@@ -480,81 +1305,188 @@ A ──5── B
 C ──1── D
 ```
 
-Find shortest route from A → D.
+From A to D:
+
+```text
+A → B → D
+5 + 3 = 8
+
+A → C → D
+2 + 1 = 3 ✓
+```
+
+Shortest path:
 
 ```text
 A → C → D
-2 + 1 = 3
 ```
 
-**Real-world:** GPS/navigation, network routing.
+### How it works
 
-**When to use:** Weighted graph + shortest path + non-negative weights.
+It keeps track of the best known distance to each node and repeatedly chooses the closest unprocessed node.
+
+### Real-world
+
+* GPS/navigation
+* Network routing
+* Delivery route systems
+
+### When to use
+
+When you have:
+
+```text
+Weighted graph
++
+Need shortest path
++
+Weights are non-negative
+```
+
+### Remember
+
+> **Dijkstra = shortest path with positive/non-negative weights.**
 
 ---
 
-# 22. Topological Sort
+# Part 18 — Topological Sort
 
-**What it does:**
-Creates an order where dependencies come before the things that depend on them.
+## 18. Topological Sort
 
-**Example:**
+### What
 
-```text
-Learn Python
-     ↓
-Learn FastAPI
-     ↓
-Build API
-```
+Creates an order where **dependencies come first**.
 
-Correct order:
+### Example
+
+You can't:
 
 ```text
-Python → FastAPI → API
+Build application
 ```
 
-**Real-world:** Build systems, package dependencies, course prerequisites.
+before:
 
-**When to use:** Directed graphs with dependencies and **no cycles**.
+```text
+Install dependencies
+```
+
+So:
+
+```text
+Install dependencies
+        ↓
+Compile
+        ↓
+Test
+        ↓
+Deploy
+```
+
+### Mental model
+
+> **What must happen before what?**
+
+### Real-world
+
+Software build systems:
+
+```text
+Database
+   ↓
+Backend
+   ↓
+Frontend
+   ↓
+Deployment
+```
+
+### When to use
+
+When dealing with:
+
+* Dependencies
+* Prerequisites
+* Build pipelines
+* Task ordering
+
+The graph must be a **directed acyclic graph (DAG)**.
+
+### Remember
+
+> **Topological Sort = dependency order.**
 
 ---
 
-# 🧠 Algorithm Selection Cheat Sheet
+# 🧠 How to Choose an Algorithm
 
 ```text
-Need to find something?
-    ↓
-Unsorted → Linear Search
-Sorted → Binary Search
+Need to search?
+│
+├── Unsorted → Linear Search
+└── Sorted → Binary Search
+
 
 Need to sort?
-    ↓
-Usually → Built-in sort
-Special case → Merge / Quick / etc.
+│
+└── Usually use built-in sort
 
-Pair/range problem?
-    ↓
-Two Pointers
-Sliding Window
-Prefix Sum
 
-Need fast lookup?
-    ↓
-Hashing
+Pair / two ends?
+│
+└── Two Pointers
+
+
+Continuous range?
+│
+└── Sliding Window
+
+
+Many range sums?
+│
+└── Prefix Sum
+
+
+Fast key lookup?
+│
+└── Hashing
+
+
+Linked-list cycle?
+│
+└── Fast + Slow Pointers
+
+
+Problem contains smaller versions?
+│
+└── Recursion
+
+
+Can divide the problem?
+│
+└── Divide & Conquer
+
+
+Best local choice works?
+│
+└── Greedy
+
+
+Need to try many possibilities?
+│
+└── Backtracking
+
 
 Repeated subproblems?
-    ↓
-Dynamic Programming
+│
+└── Dynamic Programming
 
-Explore possibilities?
-    ↓
-Backtracking
 
 Graph?
-    ↓
-Level-by-level → BFS
-Deep exploration → DFS
-Shortest weighted path → Dijkstra
-Dependencies → Topological Sort
+│
+├── Level-by-level → BFS
+├── Deep exploration → DFS
+├── Weighted shortest path → Dijkstra
+└── Dependencies → Topological Sort
 ```
+
